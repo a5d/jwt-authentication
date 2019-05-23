@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $reqData === 'profile') {
         $decoded = JWT::decode($_COOKIE['jwt'], $key, array('HS256'));
         $decoded_array = (array)$decoded;
 
-
         if (isMailExists($decoded_array['mail'])) {
             die('show profile');
         } else {
