@@ -1,7 +1,7 @@
 web:
   image: nginx:latest
   ports:
-    - "4000:80"
+    - "4000:85"
   volumes:
     - ./code:/usr/share/nginx/html/code
     - ./site.conf:/etc/nginx/conf.d/site.conf
