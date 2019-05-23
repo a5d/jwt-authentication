@@ -1,15 +1,23 @@
-FROM node:10 //pull a node image from docker hub
+#pull a node image from docker hub
+FROM node:10
 
-WORKDIR /app //set the working dir to /app
+#set the working dir to /app
+WORKDIR /app
 
-COPY package.json package.json //copy package.json to the container
+#copy package.json to the container
+COPY package.json package.json
 
-RUN npm install // install package.json modules in container
+#install package.json modules in container
+RUN npm install
 
-COPY . . //copy everything to container /app
+#copy everything to container /app
+COPY . .
 
-EXPOSE 3000 //expose port 3000 to mount it to another port in local machine
+#expose port 3000 to mount it to another port in local machine
+EXPOSE 3000
 
-RUN npm install -g nodemon // install nodemon for changes on the fly
+#install nodemon for changes on the fly
+RUN npm install -g nodemon
 
-CMD [ "nodemon", "server.js" ] // start server inside container
+#start server inside container
+CMD [ "nodemon", "server.js" ]
