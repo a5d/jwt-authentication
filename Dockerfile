@@ -2,22 +2,22 @@
 FROM node:10
 
 #set the working dir to /app
-WORKDIR /app
+#WORKDIR /app
 
 #copy package.json to the container
-COPY package.json package.json
+#COPY package.json package.json
 
 #install package.json modules in container
-RUN npm install
+#RUN npm install
 
 #copy everything to container /app
-COPY . .
+#COPY . .
 
 #expose port 3000 to mount it to another port in local machine
-EXPOSE 3000
+#EXPOSE 3000
 
 #install nodemon for changes on the fly
 RUN npm install -g nodemon
 
 #start server inside container
-CMD [ "nodemon", "server.js" ]
+#CMD [ "nodemon", "server.js" ]
