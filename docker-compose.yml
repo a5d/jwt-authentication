@@ -8,4 +8,4 @@ services:
       - "4000:3000"
     volumes:
       - .:/app
-    entrypoint: npm install && nodemon server.js
+    entrypoint: /bin/sh -c "npm install && nodemon server.js"
