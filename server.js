@@ -7,14 +7,11 @@ const MongoClient = require('mongodb').MongoClient;
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
-const mongoClient = new MongoClient("mongodb://localhost:27018/", { useNewUrlParser: true });
+const mongoClient = new MongoClient("mongodb://mongodb:27017/", { useNewUrlParser: true });
 
 mongoClient.connect(function(err, client){
   if(err) return console.log(err);
   app.locals.collection = client.db("usersdb").collection("users");
-  app.listen(3000, function(){
-    console.log("Сервер ожидает подключения...");
-  });
 });
 
 // App

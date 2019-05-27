@@ -21,6 +21,6 @@ services:
       - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./db:/data/db
-    ports:
-      - 27018:27017
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    # ports:
+      # - 27018:27018
+    # command: mongod --smallfiles --logpath=/dev/null # --quiet
