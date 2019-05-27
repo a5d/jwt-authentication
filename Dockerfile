@@ -1,3 +1,3 @@
-FROM node:10
+FROM node:alpine
 WORKDIR /app
 RUN npm install -g nodemon
