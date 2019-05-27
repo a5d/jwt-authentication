@@ -1,5 +1,3 @@
-#pull a node image from docker hub
-FROM node:alpine
-
-#install nodemon for changes on the fly
+FROM node:10
+WORKDIR /app
 RUN npm install -g nodemon
