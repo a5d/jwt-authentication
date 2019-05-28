@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -14,6 +15,7 @@ const privateKey = 'shhhhh'
 
 const mongoClient = new MongoClient("mongodb://mongodb:27017/", { useNewUrlParser: true });
 
+const swaggerDocument = require('./swagger.json');
 
 mongoClient.connect(function(err, client){
   if(err) return console.log(err);
@@ -25,6 +27,8 @@ mongoClient.connect(function(err, client){
 const app = express();
 const jsonParser = bodyParser.json()
 app.use(cookieParser())
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', (req, res) => { 
   res.send('Test\n');
