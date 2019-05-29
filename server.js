@@ -1,5 +1,3 @@
-'use strict'
-
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
@@ -20,7 +18,6 @@ const swaggerDocument = require('./swagger.json');
 
 mongoClient.connect(function (err, client) {
   if (err) return console.log(err)
-  console.log('Connected')
   app.locals.collection = client.db('jwt').collection('users')
 })
 
@@ -31,23 +28,19 @@ app.use(cookieParser())
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get('/', (req, res) => { 
-  res.send('Test\n');
-});
-
 app.post('/api/signup', jsonParser, (req, res) => {
   const collection = req.app.locals.collection
   const user = req.body
 
   collection.find({email: user.email}).limit(1).toArray(function (err, users) {
     if (users.length > 0) {
-      res.end(JSON.stringify({error: 'Email already use'}))
+      res.status(404).json({error: 'Email already use'})
     } else {
       collection.insertOne(user, function (err, result) {
         if (err) {
-          res.end(JSON.stringify({error: 'Insert Error'}))
+          res.status(404).json({error: 'Insert Error'})
         } else {
-          res.end(JSON.stringify({msg: 'Registered'}))
+          res.json({msg: 'Registered'})
         }
       })
     }
@@ -61,16 +54,16 @@ app.post('/api/login', jsonParser, (req, res) => {
       console.log('user', users[0])
       const token = jwt.sign(users[0], privateKey)
       res.cookie('jwt', token, {expires: new Date(Date.now() + 900000), path: '/'})
-      res.end(JSON.stringify({msg: 'Logged'}))
+      res.json({msg: 'Logged'})
     } else {
-      res.end(JSON.stringify({error: 'Not found'}))
+      res.status(404).json({error: 'Not found'})
     }
   })
 })
 
 app.post('/api/logout', (req, res) => {
   res.cookie('jwt', -1, {expires: new Date(Date.now() - 900000), path: '/'})
-  res.end(JSON.stringify({msg: 'Logout'}))
+  res.json({msg: 'Logout'})
 })
 
 app.get('/api/profile', (req, res) => {
@@ -83,15 +76,19 @@ app.get('/api/profile', (req, res) => {
     collection.find({email: user.email, password: user.password}).limit(1).toArray(function (err, users) {
       if (users.length > 0) {
         const userData = users[0]
-        res.end(JSON.stringify({profile: JSON.stringify({id: userData._id, email: userData.email})}))
+        res.json({profile: {id: userData._id, email: userData.email}})
       } else {
-        res.end(JSON.stringify({error: 'Error'}))
+        res.status(404).json({error: 'Error'})
       }
     })
   } catch (err) {
-    res.end(JSON.stringify({error: err}))
+    res.status(404).json({error: err.message})
   }
 })
+
+app.all('*', function(req, res){
+  res.send('not found', 404);
+});
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)

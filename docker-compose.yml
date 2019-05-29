@@ -5,7 +5,7 @@ services:
     restart: always
     build: ./
     ports:
-      - "4000:3000"
+      - "3000:3000"
     volumes:
       - .:/app
     entrypoint: /bin/sh -c "npm install && nodemon server.js"

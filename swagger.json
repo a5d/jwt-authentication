@@ -41,10 +41,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Registered"
+            "description": "Registered",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
           },
-          "201": {
-            "description": "Insert Error"
+          "404": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -75,7 +81,16 @@
         ],
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -89,7 +104,10 @@
         "operationId": "apiLogout",
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
           }
         }
       }
@@ -103,7 +121,16 @@
         "operationId": "apiProfile",
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "404": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         }
       }
@@ -124,6 +151,45 @@
         "password": {
           "type": "string",
           "example": "12345"
+        }
+      }
+    },
+    "SuccessResponse": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "example": "Success"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Error"
+        }
+      }
+    },
+    "ProfileResponse": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "$ref": "#/definitions/Profile"
+        }
+      }
+    },
+    "Profile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "123"
+        },
+        "email": {
+          "type": "integer",
+          "example": "10"
         }
       }
     }
