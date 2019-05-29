@@ -16,20 +16,21 @@ const mongoClient = new MongoClient('mongodb://mongodb:27017/', {useNewUrlParser
 
 const swaggerDocument = require('./swagger.json');
 
-mongoClient.connect(function (err, client) {
-  if (err) return console.log(err)
-  app.locals.collection = client.db('jwt').collection('users')
-})
-
 // App
 const app = express()
+let collection = null;
+
+mongoClient.connect(function (err, client) {
+  if (err) return console.log(err)
+  collection = client.db('jwt').collection('users')
+})
+
 const jsonParser = bodyParser.json()
 app.use(cookieParser())
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.post('/api/signup', jsonParser, (req, res) => {
-  const collection = req.app.locals.collection
   const user = req.body
 
   collection.find({email: user.email}).limit(1).toArray(function (err, users) {
@@ -48,7 +49,6 @@ app.post('/api/signup', jsonParser, (req, res) => {
 })
 
 app.post('/api/login', jsonParser, (req, res) => {
-  const collection = req.app.locals.collection
   collection.find(req.body).limit(1).toArray(function (err, users) {
     if (users.length > 0) {
       console.log('user', users[0])
@@ -67,8 +67,6 @@ app.post('/api/logout', (req, res) => {
 })
 
 app.get('/api/profile', (req, res) => {
-  const collection = req.app.locals.collection
-
   try {
     const token = req.cookies.jwt
     const user = jwt.verify(token, privateKey)
