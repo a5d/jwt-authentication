@@ -1,6 +1,7 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+const config = require('dotenv').config()
 
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -10,7 +11,7 @@ const MongoClient = require('mongodb').MongoClient
 // Constants
 const PORT = 3000
 const HOST = '0.0.0.0'
-const privateKey = 'shhhhh'
+const privateKey = config.parsed.PRIVATE_KEY
 
 const mongoClient = new MongoClient('mongodb://mongodb:27017/', {useNewUrlParser: true})
 
