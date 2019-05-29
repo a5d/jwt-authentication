@@ -1,12 +1,14 @@
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const jwt = require('jsonwebtoken');
+const express = require('express')
+const swaggerUi = require('swagger-ui-express')
+const jwt = require('jsonwebtoken')
 const config = require('dotenv').config()
 
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 const MongoClient = require('mongodb').MongoClient
+
+const signupRouter = require('./routes/signup')
 
 // Constants
 const PORT = 3000
@@ -15,13 +17,13 @@ const privateKey = config.parsed.PRIVATE_KEY
 
 const mongoClient = new MongoClient('mongodb://mongodb:27017/', {useNewUrlParser: true})
 
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger.json')
 
 // App
 const app = express()
-let collection = null;
+let collection = null
 
-mongoClient.connect(function (err, client) {
+mongoClient.connect((err, client) => {
   if (err) return console.log(err)
   collection = client.db('jwt').collection('users')
 })
@@ -29,28 +31,17 @@ mongoClient.connect(function (err, client) {
 const jsonParser = bodyParser.json()
 app.use(cookieParser())
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.post('/api/signup', jsonParser, (req, res) => {
-  const user = req.body
-
-  collection.find({email: user.email}).limit(1).toArray(function (err, users) {
-    if (users.length > 0) {
-      res.status(404).json({error: 'Email already use'})
-    } else {
-      collection.insertOne(user, function (err, result) {
-        if (err) {
-          res.status(404).json({error: 'Insert Error'})
-        } else {
-          res.json({msg: 'Registered'})
-        }
-      })
-    }
-  })
+app.use((req, res, next) => {
+  req.db = collection
+  return next()
 })
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+app.post('/api/signup', jsonParser, signupRouter)
+
 app.post('/api/login', jsonParser, (req, res) => {
-  collection.find(req.body).limit(1).toArray(function (err, users) {
+  collection.find(req.body).limit(1).toArray((err, users) => {
     if (users.length > 0) {
       console.log('user', users[0])
       const token = jwt.sign(users[0], privateKey)
@@ -85,9 +76,9 @@ app.get('/api/profile', (req, res) => {
   }
 })
 
-app.all('*', function(req, res){
-  res.send('not found', 404);
-});
+app.all('*', (req, res) => {
+  res.send('not found', 404)
+})
 
 app.listen(PORT, HOST)
 console.log(`Running on http://${HOST}:${PORT}`)
