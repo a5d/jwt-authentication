@@ -15,11 +15,11 @@ router.use((req, res) => {
         const {_id, email} = users[0]
         res.json({profile: {id: _id, email}})
       } else {
-        res.status(404).json({error: 'Error'})
+        res.status(400).json({error: 'Error'})
       }
     })
   } catch (err) {
-    res.status(404).json({error: err.message})
+    res.status(400).json({error: err.message})
   }
 })
 
