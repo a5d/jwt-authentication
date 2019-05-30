@@ -49,7 +49,7 @@ app.post('/api/login', jsonParser, (req, res) => {
         .json({msg: 'Logged'})
     }
 
-    return res.status(404).json({error: 'Not found'})
+    return res.status(404).json({error: 'Not found 1'})
   })
 })
 
@@ -77,7 +77,7 @@ app.get('/api/profile', (req, res) => {
 })
 
 app.all('*', (req, res) => {
-  res.send(404).send('not found')
+  res.status(404).send('not found')
 })
 
 app.listen(PORT, HOST)
