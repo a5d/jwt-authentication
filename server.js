@@ -33,7 +33,7 @@ app.use(cookieParser())
 
 app.use((req, res, next) => {
   req.db = collection
-  return next()
+  next()
 })
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
@@ -68,16 +68,16 @@ app.get('/api/profile', (req, res) => {
         const userData = users[0]
         res.json({profile: {id: userData._id, email: userData.email}})
       } else {
-        res.sendStatus(404).json({error: 'Error'})
+        res.status(404).json({error: 'Error'})
       }
     })
   } catch (err) {
-    res.sendStatus(404).json({error: err.message})
+    res.status(404).json({error: err.message})
   }
 })
 
 app.all('*', (req, res) => {
-  return res.sendStatus(404).send('not found')
+  res.send(404).send('not found')
 })
 
 app.listen(PORT, HOST)
