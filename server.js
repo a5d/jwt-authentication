@@ -6,16 +6,16 @@ const config = require('dotenv').config()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const MongoClient = require('mongodb').MongoClient
+const {MongoClient} = require('mongodb')
 
 const signupRouter = require('./routes/signup')
 
 // Constants
 const PORT = 3000
 const HOST = '0.0.0.0'
-const privateKey = config.parsed.PRIVATE_KEY
+const {PRIVATE_KEY: privateKey, MONGODB_URL: mongoUrl} = config.parsed
 
-const mongoClient = new MongoClient(config.parsed.MONGODB_URL, {useNewUrlParser: true})
+const mongoClient = new MongoClient(mongoUrl, {useNewUrlParser: true})
 
 const swaggerDocument = require('./swagger.json')
 
@@ -60,13 +60,13 @@ app.post('/api/logout', (req, res) => {
 
 app.get('/api/profile', (req, res) => {
   try {
-    const token = req.cookies.jwt
+    const {jwt: token} = req.cookies
     const user = jwt.verify(token, privateKey)
 
-    collection.find({email: user.email, password: user.password}).limit(1).toArray(function (err, users) {
+    collection.find({email: user.email, password: user.password}).limit(1).toArray((err, users) => {
       if (users.length > 0) {
-        const userData = users[0]
-        res.json({profile: {id: userData._id, email: userData.email}})
+        const {_id, email} = users[0]
+        res.json({profile: {id: _id, email}})
       } else {
         res.status(404).json({error: 'Error'})
       }
