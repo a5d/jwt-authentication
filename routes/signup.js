@@ -2,7 +2,7 @@ const {Router} = require('express')
 
 const router = Router()
 
-router.use((req, res) => {
+router.use((req, res, next) => {
   const user = req.body
 
   try {
@@ -27,7 +27,7 @@ router.use((req, res) => {
     return res.status(404).json({error: err.message})
   }
 
-  return res.status(404).json({error: 'Error'})
+  return next()
 })
 
 module.exports = router

@@ -15,7 +15,7 @@ const PORT = 3000
 const HOST = '0.0.0.0'
 const privateKey = config.parsed.PRIVATE_KEY
 
-const mongoClient = new MongoClient('mongodb://mongodb:27017/', {useNewUrlParser: true})
+const mongoClient = new MongoClient(config.parsed.MONGODB_URL, {useNewUrlParser: true})
 
 const swaggerDocument = require('./swagger.json')
 
@@ -43,13 +43,13 @@ app.post('/api/signup', jsonParser, signupRouter)
 app.post('/api/login', jsonParser, (req, res) => {
   collection.find(req.body).limit(1).toArray((err, users) => {
     if (users.length > 0) {
-      console.log('user', users[0])
       const token = jwt.sign(users[0], privateKey)
-      res.cookie('jwt', token, {expires: new Date(Date.now() + 900000), path: '/'})
-      res.json({msg: 'Logged'})
-    } else {
-      res.status(404).json({error: 'Not found'})
+      return res
+        .cookie('jwt', token, {expires: new Date(Date.now() + 900000), path: '/'})
+        .json({msg: 'Logged'})
     }
+
+    return res.status(404).json({error: 'Not found'})
   })
 })
 
@@ -77,7 +77,7 @@ app.get('/api/profile', (req, res) => {
 })
 
 app.all('*', (req, res) => {
-  res.send('not found', 404)
+  return res.send(404).send('not found')
 })
 
 app.listen(PORT, HOST)
