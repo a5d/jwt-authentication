@@ -4,30 +4,33 @@ const router = Router()
 
 router.use((req, res, next) => {
   const user = req.body
-
+  console.log('user', user)
   try {
     req.db.find({email: user.email}).limit(1).toArray((err1, users) => {
-      if (err1) return res.status(404).json({error: err1})
+      console.log('users', users)
+
+      if (err1) res.sendStatus(404).json({error: err1})
 
       if (users.length > 0) {
-        return res.status(404).json({error: 'Email already use'})
+        console.log('Test', 'Send')
+        res.status(404).json({error: 'Email already use'})
       }
 
       req.db.insertOne(user, (err2) => {
         if (err2) {
-          return res.status(404).json({error: 'Insert Error'})
+          res.sendStatus(404).json({error: 'Insert Error'})
         }
 
-        return res.json({msg: 'Registered'})
+        res.json({msg: 'Registered'})
       })
 
-      return res.status(404).json({error: 'Insert Error'})
+      next()
     })
   } catch (err) {
-    return res.status(404).json({error: err.message})
+    res.status(404).json({error: err.message})
   }
 
-  return next()
+  next()
 })
 
 module.exports = router

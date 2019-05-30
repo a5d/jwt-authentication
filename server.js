@@ -24,7 +24,7 @@ const app = express()
 let collection = null
 
 mongoClient.connect((err, client) => {
-  if (err) return console.log(err)
+  if (err) console.log(err)
   collection = client.db('jwt').collection('users')
 })
 
@@ -68,16 +68,16 @@ app.get('/api/profile', (req, res) => {
         const userData = users[0]
         res.json({profile: {id: userData._id, email: userData.email}})
       } else {
-        res.status(404).json({error: 'Error'})
+        res.sendStatus(404).json({error: 'Error'})
       }
     })
   } catch (err) {
-    res.status(404).json({error: err.message})
+    res.sendStatus(404).json({error: err.message})
   }
 })
 
 app.all('*', (req, res) => {
-  return res.send(404).send('not found')
+  return res.sendStatus(404).send('not found')
 })
 
 app.listen(PORT, HOST)
