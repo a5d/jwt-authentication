@@ -6,7 +6,13 @@ router.use(async (req, res) => {
   const user = req.body
 
   try {
+    console.log('before await')
     await req.db.find({email: user.email}).limit(1).toArray(async (err1, users) => {
+      console.log('in await')
+
+      const now = new Date().getTime();
+      while(new Date().getTime() < now + 60000){ /* do nothing */ }
+
       if (err1) {
         res.status(400).json({error: err1})
       } else if (users.length > 0) {
@@ -21,6 +27,8 @@ router.use(async (req, res) => {
         })
       }
     })
+
+    console.log('after await')
   } catch (err) {
     res.status(400).json({error: err.message})
   }
