@@ -1,10 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
-class FormContainer extends Component {
-  render() {
-    return <div>App</div>
-  }
+const App = () => {
+  return <div>App2</div>
 }
 
-ReactDOM.render(<FormContainer/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('app'))
