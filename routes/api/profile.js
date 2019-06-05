@@ -1,11 +1,10 @@
-const {Router} = require('express')
 const jwt = require('jsonwebtoken')
 const config = require('dotenv').config()
 
 const {PRIVATE_KEY: privateKey} = config.parsed
-const router = Router()
 
-router.use(async (req, res) => {
+
+const router = async (req, res) => {
   try {
     const {jwt: token} = req.cookies
     const user = jwt.verify(token, privateKey)
@@ -21,6 +20,6 @@ router.use(async (req, res) => {
   } catch (err) {
     res.status(400).json({error: err.message})
   }
-})
+}
 
 module.exports = router

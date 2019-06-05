@@ -1,8 +1,4 @@
-const {Router} = require('express')
-
-const router = Router()
-
-router.use(async (req, res) => {
+const router = async (req, res) => {
   const user = req.body
 
   try {
@@ -32,6 +28,6 @@ router.use(async (req, res) => {
   } catch (err) {
     res.status(400).json({error: err.message})
   }
-})
+}
 
 module.exports = router
