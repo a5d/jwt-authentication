@@ -4,12 +4,12 @@ const config = require('dotenv').config()
 const {PRIVATE_KEY: privateKey} = config.parsed
 
 
-const router = async (req, res) => {
+const router = (req, res) => {
   try {
     const {jwt: token} = req.cookies
     const user = jwt.verify(token, privateKey)
 
-    await req.db.find({email: user.email, password: user.password}).limit(1).toArray((err, users) => {
+    req.db.find({email: user.email, password: user.password}).limit(1).toArray((err, users) => {
       if (users.length > 0) {
         const {_id, email} = users[0]
         res.json({profile: {id: _id, email}})
