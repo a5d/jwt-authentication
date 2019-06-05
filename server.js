@@ -1,13 +1,14 @@
 const express = require('express')
-const config = require('dotenv').config()
 const debug = require('debug')('http')
 const cookieParser = require('cookie-parser')
 const {MongoClient} = require('mongodb')
 
+const {mongoUrl} = require('./config')
+
 // Constants
 const PORT = 3000
 const HOST = '0.0.0.0'
-const {MONGODB_URL: mongoUrl} = config.parsed
+
 const mongoClient = new MongoClient(mongoUrl, {useNewUrlParser: true})
 
 // App

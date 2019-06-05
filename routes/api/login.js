@@ -1,7 +1,5 @@
 const jwt = require('jsonwebtoken')
-const config = require('dotenv').config()
-
-const {PRIVATE_KEY: privateKey} = config.parsed
+const {privateKey} = require('../../config')
 
 const router = (req, res) => {
   req.db.find(req.body).limit(1).toArray((err, users) => {
