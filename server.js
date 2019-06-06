@@ -16,7 +16,10 @@ const app = express()
 let collection = null
 
 mongoClient.connect((err, client) => {
-  if (err) debug('connect error', err)
+  if (err) {
+    debug('connect error', err)
+    return
+  }
   collection = client.db('jwt').collection('users')
 })
 
