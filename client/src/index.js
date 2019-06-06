@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom'
 
-class App extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props)
 
@@ -30,38 +31,74 @@ class App extends Component {
   }
 
   render() {
+    const {email, password} = this.state
+
     if (this.state.auth === false) {
       return <div>
         <form onSubmit={this.submitForm}>
-          <p><input
-            name='email'
-            onChange={this.updateInput}
-            placeholder='E-mail'
-            type="text"
-            value={this.state.email}
-          />
+          <p>
+            <input
+              name='email'
+              onChange={this.updateInput}
+              placeholder='E-mail'
+              type="text"
+              value={email}
+            />
           </p>
           <p><input
             name='password'
             onChange={this.updateInput}
             placeholder='Пароль'
             type="password"
-            value={this.state.password}
+            value={password}
           /></p>
           <p>
             <button type="submit">Отправить</button>
           </p>
         </form>
-      </div>
-    } else {
-      return <div>
-        <p>Отправлено</p>
-        <p>
-          <button onClick={this.cancelForm}>Назад</button>
-        </p>
+        <p><Link to='/registration'>Registration</Link></p>
       </div>
     }
+
+    return <div>
+      <p>Отправлено</p>
+      <p>
+        <button onClick={this.cancelForm}>Назад</button>
+      </p>
+    </div>
   }
+}
+
+
+const RegistrationPage = () => {
+  return <div>
+    <p>Registration Page</p>
+    <p><Link to='/'>Login</Link></p>
+  </div>
+}
+
+const ProfilePage = () => {
+  return <div>
+    <p>Profile Page</p>
+    <p><Link to='/'>Login</Link></p>
+  </div>
+}
+
+const App = () => {
+  return <BrowserRouter>
+    <nav>
+      <ul>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/registration'>Registration</Link></li>
+        <li><Link to='/profile'>Profile</Link></li>
+      </ul>
+    </nav>
+    <Switch>
+      <Route exact path='/' component={LoginPage}/>
+      <Route path='/registration' component={RegistrationPage}/>
+      <Route path='/profile' component={ProfilePage}/>
+    </Switch>
+  </BrowserRouter>
 }
 
 ReactDOM.render(<App/>, document.getElementById('app'))
