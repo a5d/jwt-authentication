@@ -1,4 +1,5 @@
 const express = require('express')
+var cors = require('cors')
 const debug = require('debug')('http')
 const cookieParser = require('cookie-parser')
 const {MongoClient} = require('mongodb')
@@ -11,6 +12,8 @@ const HOST = '0.0.0.0'
 
 // App
 const app = express()
+app.use(cors())
+
 let collection = null
 
 MongoClient.connect(mongoUrl, {
