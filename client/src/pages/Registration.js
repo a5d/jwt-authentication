@@ -7,8 +7,9 @@ class RegistrationPage extends Component {
 
     this.state = {
       'complete': false,
-      'email': '',
-      'password': ''
+      'error': '',
+      'email': '123',
+      'password': '123'
     }
 
     this.submitForm = this.submitForm.bind(this)
@@ -22,7 +23,9 @@ class RegistrationPage extends Component {
   submitForm(e) {
     e.preventDefault()
 
-    fetch('http://localhost:3000/api/login', {
+    const {email, password} = this.state
+
+    fetch('http://localhost:3000/api/signup', {
       method: 'POST',
       body: JSON.stringify({
         email: email,
@@ -35,8 +38,7 @@ class RegistrationPage extends Component {
         if (data.error) {
           this.setState({...data})
         } else {
-          this.setState({auth: true})
-          this.props.onLogged()
+          this.setState({complete: true})
         }
 
       })
@@ -44,7 +46,7 @@ class RegistrationPage extends Component {
   }
 
   render() {
-    const {email, password, complete} = this.state
+    const {email, password, complete, error} = this.state
     const {auth} = this.props
 
     if (complete === true) {
@@ -57,7 +59,8 @@ class RegistrationPage extends Component {
     }
 
     return <div>
-      <p>Registration Page</p>
+      <h3>Registration Page</h3>
+      <p>{error}</p>
       <form onSubmit={this.submitForm}>
         <p>
           <input

@@ -7,8 +7,8 @@ class LoginPage extends Component {
 
     this.state = {
       'auth': false,
-      'email': '',
-      'password': '',
+      'email': '123',
+      'password': '123',
       'error': ''
     }
 
