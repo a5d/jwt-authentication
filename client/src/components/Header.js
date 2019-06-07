@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
   return <nav>
     <Link to='/'>Home</Link> |
-    <Link to='/registration'>Registration</Link> |
-    <Link to='/profile'>Profile</Link>
+    {(props.auth === false) ? <span><Link to='/registration'>Registration</Link></span> :
+      <span><Link to='/profile'>Profile</Link> | </span>}
+    {(props.auth === true) ? <span><Link to='/logout'>Logout</Link></span> : ''}
   </nav>
 }
 

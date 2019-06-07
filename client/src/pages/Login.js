@@ -8,7 +8,8 @@ class LoginPage extends Component {
     this.state = {
       'auth': false,
       'email': '',
-      'password': ''
+      'password': '',
+      'error': ''
     }
 
     this.submitForm = this.submitForm.bind(this)
@@ -21,8 +22,29 @@ class LoginPage extends Component {
   }
 
   submitForm(e) {
+    const {email, password} = this.state
+
     e.preventDefault()
-    this.setState({'auth': true})
+
+    fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+      headers: {'content-type': 'application/json'}
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          this.setState({...data})
+        } else {
+          this.setState({auth: true})
+          this.props.onLogged()
+        }
+
+      })
+      .catch(e => console.error(e));
   }
 
   cancelForm() {
@@ -30,10 +52,12 @@ class LoginPage extends Component {
   }
 
   render() {
-    const {email, password} = this.state
+    const {email, password, error} = this.state
+    const {auth} = this.props
 
-    if (this.state.auth === false) {
+    if (auth === false) {
       return <div>
+        <p>{error}</p>
         <form onSubmit={this.submitForm}>
           <p>
             <input
@@ -55,15 +79,11 @@ class LoginPage extends Component {
             <button type="submit">Отправить</button>
           </p>
         </form>
-        <p><Link to='/registration'>Registration</Link></p>
       </div>
     }
 
     return <div>
-      <p>Отправлено</p>
-      <p>
-        <button onClick={this.cancelForm}>Назад</button>
-      </p>
+      <p>Вы вошли</p>
     </div>
   }
 }

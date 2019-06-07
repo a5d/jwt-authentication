@@ -6,7 +6,7 @@ class RegistrationPage extends Component {
     super(props)
 
     this.state = {
-      'auth': true,
+      'complete': false,
       'email': '',
       'password': ''
     }
@@ -21,14 +21,38 @@ class RegistrationPage extends Component {
 
   submitForm(e) {
     e.preventDefault()
-    this.setState({'auth': true})
+
+    fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password
+      }),
+      headers: {'content-type': 'application/json'}
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          this.setState({...data})
+        } else {
+          this.setState({auth: true})
+          this.props.onLogged()
+        }
+
+      })
+      .catch(e => console.error(e));
   }
 
   render() {
-    const {email, password, auth} = this.state
+    const {email, password, complete} = this.state
+    const {auth} = this.props
 
-    if (auth === false) {
-      return <div>Already registered</div>
+    if (complete === true) {
+      return <p>Регистрация завершена</p>
+    }
+
+    if (auth === true) {
+      return <p>Вы уже зарегистрированы</p>
 
     }
 
@@ -55,7 +79,6 @@ class RegistrationPage extends Component {
           <button type="submit">Отправить</button>
         </p>
       </form>
-      <p><Link to='/'>Login</Link></p>
     </div>
   }
 }
