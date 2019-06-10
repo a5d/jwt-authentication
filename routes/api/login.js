@@ -6,7 +6,7 @@ const router = (req, res) => {
     if (users.length > 0) {
       const token = jwt.sign(users[0], privateKey)
       res
-        .cookie('jwt', token, {expires: new Date(Date.now() + 900000), path: '/'})
+        .cookie('jwt', token, {expires: new Date(Date.now() + 12900000), path: '/'})
         .json({msg: 'Logged'})
       return
     }
