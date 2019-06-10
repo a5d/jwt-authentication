@@ -25,8 +25,9 @@ class RegistrationPage extends Component {
 
     const {email, password} = this.state
 
-    fetch('http://localhost:3000/api/signup', {
+    fetch('http://127.0.0.1:3000/api/signup', {
       method: 'POST',
+      credentials: "include",
       body: JSON.stringify({
         email: email,
         password: password

@@ -10,8 +10,9 @@ class ProfilePage extends Component {
     const {auth} = this.props
 
     if (auth) {
-      fetch('http://localhost:3000/api/profile', {
+      fetch('http://127.0.0.1:3000/api/profile', {
         method: 'GET',
+        credentials: "include",
         headers: {'content-type': 'application/json'}
       })
         .then(res => res.json())

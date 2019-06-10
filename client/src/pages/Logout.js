@@ -6,8 +6,9 @@ class LogoutPage extends Component {
   }
 
   logOut() {
-    fetch('http://localhost:3000/api/logout', {
+    fetch('http://127.0.0.1:3000/api/logout', {
       method: 'POST',
+      credentials: "include",
       headers: {'content-type': 'application/json'}
     })
       .then(res => res.json())
