@@ -52,7 +52,7 @@ class SignupPage extends Component {
     }
 
     return <div>
-      <h3>Registration Page</h3>
+      <h3>Signup</h3>
       <p>{error}</p>
       <form onSubmit={this.submitForm}>
         <p>
