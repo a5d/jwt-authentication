@@ -1,6 +1,6 @@
 version: "3"
 services:
-  app:
+  express-api:
     container_name: express
     restart: always
     build: ./
@@ -27,7 +27,7 @@ services:
       - ./nginx/src:/usr/share/nginx/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - app
+      - express-api
       - react
   react:
     container_name: react

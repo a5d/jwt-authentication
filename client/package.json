@@ -7,8 +7,8 @@
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react", "jwt", "login", "signup"],
+  "author": "a5d <5108591@mail.ru>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -20,7 +20,7 @@ class LogoutPage extends Component {
         }
 
       })
-      .catch(e => console.error(e));
+      .catch(console.error);
   }
 
   render() {
