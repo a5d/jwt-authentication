@@ -26,7 +26,7 @@ class LoginPage extends Component {
 
     e.preventDefault()
 
-    fetch('http://localhost:8082/api/login', {
+    fetch(process.env.API_URL + 'login', {
       method: 'POST',
       credentials: "include",
       body: JSON.stringify({

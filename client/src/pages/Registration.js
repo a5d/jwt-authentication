@@ -25,7 +25,7 @@ class RegistrationPage extends Component {
 
     const {email, password} = this.state
 
-    fetch('http://localhost:8082/api/signup', {
+    fetch(process.env.API_URL + 'signup', {
       method: 'POST',
       credentials: "include",
       body: JSON.stringify({
