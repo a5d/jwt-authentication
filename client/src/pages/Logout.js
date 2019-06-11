@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import logoutService from "../service/Logout";
 
 class LogoutPage extends Component {
   componentDidMount() {
@@ -6,11 +7,7 @@ class LogoutPage extends Component {
   }
 
   logOut() {
-    fetch(process.env.API_URL + 'logout', {
-      method: 'POST',
-      credentials: "include",
-      headers: {'content-type': 'application/json'}
-    })
+    logoutService()
       .then(res => res.json())
       .then(data => {
         if (data.error) {

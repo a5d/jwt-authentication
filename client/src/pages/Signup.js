@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {Link} from "react-router-dom";
+import signupService from '../service/Signup'
 
-class RegistrationPage extends Component {
+class SignupPage extends Component {
   constructor(props) {
     super(props)
 
@@ -25,15 +25,7 @@ class RegistrationPage extends Component {
 
     const {email, password} = this.state
 
-    fetch(process.env.API_URL + 'signup', {
-      method: 'POST',
-      credentials: "include",
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-      headers: {'content-type': 'application/json'}
-    })
+    signupService({password, email})
       .then(res => res.json())
       .then(data => {
         if (data.error) {
@@ -87,4 +79,4 @@ class RegistrationPage extends Component {
   }
 }
 
-export default RegistrationPage
+export default SignupPage

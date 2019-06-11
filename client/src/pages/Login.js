@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Link} from "react-router-dom";
+import loginService from '../service/Login'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -26,15 +26,7 @@ class LoginPage extends Component {
 
     e.preventDefault()
 
-    fetch(process.env.API_URL + 'login', {
-      method: 'POST',
-      credentials: "include",
-      body: JSON.stringify({
-        email: email,
-        password: password
-      }),
-      headers: {'content-type': 'application/json'}
-    })
+    loginService({password, email})
       .then(res => res.json())
       .then(data => {
         if (data.error) {

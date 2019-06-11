@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import profileService from '../service/Profile'
 
 class ProfilePage extends Component {
   state = {
@@ -10,11 +11,7 @@ class ProfilePage extends Component {
     const {auth} = this.props
 
     if (auth) {
-      fetch(process.env.API_URL + 'profile', {
-        method: 'GET',
-        credentials: "include",
-        headers: {'content-type': 'application/json'}
-      })
+      profileService()
         .then(res => res.json())
         .then(data => {
           if (data.error) {
