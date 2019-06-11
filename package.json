@@ -1,7 +1,7 @@
 {
-  "name": "jwt",
+  "name": "jwt express api",
   "version": "1.0.0",
-  "description": "",
+  "description": "jwt express login api",
   "main": "server.js",
   "scripts": {
     "start": "set DEBUG=* & nodemon server.js"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/a5d/jwt.git"
   },
-  "author": "",
+  "author": "a5d <5108591@mail.ru>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/a5d/jwt/issues"
