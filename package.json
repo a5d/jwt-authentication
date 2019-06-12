@@ -13,7 +13,10 @@
     }
   },
   "lint-staged": {
-    "*.(js|jsx)": ["npm run lint", "git add"]
+    "*.(js|jsx)": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",

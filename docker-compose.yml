@@ -3,6 +3,7 @@ services:
   express-api:
     image: node:alpine
     container_name: express-nodemon
+    restart: always
     working_dir: /app
     volumes:
       - .:/app
