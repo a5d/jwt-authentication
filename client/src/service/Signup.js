@@ -1,5 +1,5 @@
 const signupService = ({ password, email }) => {
-  return fetch(process.env.API_URL + 'login', {
+  return fetch(process.env.API_URL + 'signup', {
     method: 'POST',
     credentials: "include",
     body: JSON.stringify({
