@@ -4,7 +4,8 @@
   "description": "jwt express login api",
   "main": "server.js",
   "scripts": {
-    "start": "set DEBUG=* & nodemon server.js"
+    "start": "set DEBUG=* & nodemon server.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
