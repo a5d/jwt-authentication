@@ -7,14 +7,10 @@ module.exports = {
     "react/jsx-one-expression-per-line": [0],
     "no-console": 0,
     "no-alert": 0,
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["client", "node_modules", 'client/node_modules'],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    },
+    "import/no-unresolved": [
+      2,
+      { "caseSensitive": false }
+    ]
   },
   "env": {
     "browser": true,
