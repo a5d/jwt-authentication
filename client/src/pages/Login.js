@@ -13,7 +13,6 @@ class LoginPage extends Component {
     }
 
     this.submitForm = this.submitForm.bind(this)
-    this.cancelForm = this.cancelForm.bind(this)
     this.updateInput = this.updateInput.bind(this)
   }
 

@@ -40,6 +40,6 @@ MongoClient.connect(mongoUrl, {
 
   app.listen(PORT, HOST)
   debug(`Running on http://${HOST}:${PORT}`)
-}).catch(console.error)
+})
 
 
