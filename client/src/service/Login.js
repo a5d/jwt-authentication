@@ -1,10 +1,10 @@
-const loginService = ({ password, email }) => {
-  return fetch(process.env.API_URL + 'login', {
+const loginService = ({password, email}) => {
+  return fetch(`${process.env.API_URL}login`, {
     method: 'POST',
-    credentials: "include",
+    credentials: 'include',
     body: JSON.stringify({
-      email: email,
-      password: password
+      email,
+      password
     }),
     headers: {'content-type': 'application/json'}
   })

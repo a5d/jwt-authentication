@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import logoutService from "../service/Logout";
+import PropTypes from 'prop-types'
+import logoutService from '../service/Logout'
+
 
 class LogoutPage extends Component {
   componentDidMount() {
@@ -7,30 +9,42 @@ class LogoutPage extends Component {
   }
 
   logOut() {
+    const {onLogouted} = this.props
+
     logoutService()
       .then(res => res.json())
       .then(data => {
         if (data.error) {
           console.error(data.error)
         } else {
-          this.props.onLogouted()
+          onLogouted()
         }
 
       })
-      .catch(console.error);
+      .catch(console.error)
   }
 
   render() {
-    if (this.props.auth === true) {
-      return <div>
-        <p>Выход...</p>
-      </div>
+    const {auth} = this.props
+    if (auth) {
+      return (
+        <div>
+          <p>Выход...</p>
+        </div>
+      )
     }
 
-    return <div>
-      <p>Вы вышли</p>
-    </div>
+    return (
+      <div>
+        <p>Вы вышли</p>
+      </div>
+    )
   }
 }
+
+LogoutPage.propTypes = {
+  auth: PropTypes.bool.isRequired,
+  onLogouted: PropTypes.func.isRequired,
+};
 
 export default LogoutPage

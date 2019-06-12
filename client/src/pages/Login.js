@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import loginService from '../service/Login'
 
 class LoginPage extends Component {
@@ -6,7 +7,6 @@ class LoginPage extends Component {
     super(props)
 
     this.state = {
-      'auth': false,
       'email': '123',
       'password': '123',
       'error': ''
@@ -23,6 +23,7 @@ class LoginPage extends Component {
 
   submitForm(e) {
     const {email, password} = this.state
+    const {onLogged} = this.props
 
     e.preventDefault()
 
@@ -32,16 +33,11 @@ class LoginPage extends Component {
         if (data.error) {
           this.setState({...data})
         } else {
-          this.setState({auth: true})
-          this.props.onLogged()
+          onLogged()
         }
 
       })
-      .catch(console.error);
-  }
-
-  cancelForm() {
-    this.setState({'auth': false})
+      .catch(console.error)
   }
 
   render() {
@@ -49,36 +45,46 @@ class LoginPage extends Component {
     const {auth} = this.props
 
     if (auth === false) {
-      return <div>
-        <p>{error}</p>
-        <form onSubmit={this.submitForm}>
-          <p>
-            <input
-              name='email'
+      return (
+        <div>
+          <p>{error}</p>
+          <form onSubmit={this.submitForm}>
+            <p>
+              <input
+                name='email'
+                onChange={this.updateInput}
+                placeholder='E-mail'
+                type="text"
+                value={email}
+              />
+            </p>
+            <p><input
+              name='password'
               onChange={this.updateInput}
-              placeholder='E-mail'
-              type="text"
-              value={email}
+              placeholder='Пароль'
+              type="password"
+              value={password}
             />
-          </p>
-          <p><input
-            name='password'
-            onChange={this.updateInput}
-            placeholder='Пароль'
-            type="password"
-            value={password}
-          /></p>
-          <p>
-            <button type="submit">Отправить</button>
-          </p>
-        </form>
-      </div>
+            </p>
+            <p>
+              <button type="submit">Отправить</button>
+            </p>
+          </form>
+        </div>
+      )
     }
 
-    return <div>
-      <p>Вы вошли</p>
-    </div>
+    return (
+      <div>
+        <p>Вы вошли</p>
+      </div>
+    )
   }
+}
+
+LoginPage.propTypes = {
+  auth: PropTypes.bool.isRequired,
+  onLogged: PropTypes.func.isRequired,
 }
 
 export default LoginPage

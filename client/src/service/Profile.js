@@ -1,7 +1,7 @@
 const profileService = () => {
-  return fetch(process.env.API_URL + 'profile', {
+  return fetch(`${process.env.API_URL}profile`, {
     method: 'GET',
-    credentials: "include",
+    credentials: 'include',
     headers: {'content-type': 'application/json'}
   })
 }

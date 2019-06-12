@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import profileService from '../service/Profile'
 
 class ProfilePage extends Component {
@@ -21,19 +22,25 @@ class ProfilePage extends Component {
           }
 
         })
-        .catch(console.error);
+        .catch(console.error)
     }
   }
 
   render() {
-    const {error} = this.state
+    const {error, profile} = this.state
 
-    return <div>
-      <p>Profile Page</p>
-      <p>{error}</p>
-      <p>{JSON.stringify(this.state.profile)}</p>
-    </div>
+    return (
+      <div>
+        <p>Profile Page</p>
+        <p>{error}</p>
+        <p>{JSON.stringify(profile)}</p>
+      </div>
+    )
   }
+}
+
+ProfilePage.propTypes = {
+  auth: PropTypes.bool.isRequired
 }
 
 export default ProfilePage

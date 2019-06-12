@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import signupService from '../service/Signup'
 
 class SignupPage extends Component {
@@ -35,7 +36,7 @@ class SignupPage extends Component {
         }
 
       })
-      .catch(console.error);
+      .catch(console.error)
   }
 
   render() {
@@ -51,32 +52,39 @@ class SignupPage extends Component {
 
     }
 
-    return <div>
-      <h3>Signup</h3>
-      <p>{error}</p>
-      <form onSubmit={this.submitForm}>
-        <p>
-          <input
-            name='email'
+    return (
+      <div>
+        <h3>Signup</h3>
+        <p>{error}</p>
+        <form onSubmit={this.submitForm}>
+          <p>
+            <input
+              name='email'
+              onChange={this.updateInput}
+              placeholder='E-mail'
+              type="text"
+              value={email}
+            />
+          </p>
+          <p><input
+            name='password'
             onChange={this.updateInput}
-            placeholder='E-mail'
-            type="text"
-            value={email}
+            placeholder='Пароль'
+            type="password"
+            value={password}
           />
-        </p>
-        <p><input
-          name='password'
-          onChange={this.updateInput}
-          placeholder='Пароль'
-          type="password"
-          value={password}
-        /></p>
-        <p>
-          <button type="submit">Отправить</button>
-        </p>
-      </form>
-    </div>
+          </p>
+          <p>
+            <button type="submit">Отправить</button>
+          </p>
+        </form>
+      </div>
+    )
   }
+}
+
+SignupPage.propTypes = {
+  auth: PropTypes.bool.isRequired
 }
 
 export default SignupPage
