@@ -8,6 +8,14 @@ module.exports = {
     "no-console": 0,
     "no-alert": 0,
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["node_modules", 'client/node_modules'],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    },
+  },
   "env": {
     "browser": true,
     "node": true
