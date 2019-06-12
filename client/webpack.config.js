@@ -6,6 +6,10 @@ module.exports = {
     host: '0.0.0.0',
     historyApiFallback: true
   },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000
+  },
   module: {
     rules: [
       {
@@ -14,6 +18,10 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+        loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
       },
       {
         test: /\.html$/,

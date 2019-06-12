@@ -8,6 +8,8 @@ import ProfilePage from './pages/Profile'
 import LogoutPage from './pages/Logout'
 import Header from './components/Header'
 
+import './favicon.ico'
+
 class App extends Component {
   state = {
     auth: false
