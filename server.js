@@ -1,18 +1,18 @@
 const express = require('express')
-var cors = require('cors')
+
 const debug = require('debug')('http')
 const cookieParser = require('cookie-parser')
 const {MongoClient} = require('mongodb')
 
+const apiRoute = require('./routes/api')
+const notFoundRoute = require('./routes/not-found')
+
 const {mongoUrl} = require('./config')
 
-// Constants
 const PORT = 3000
 const HOST = '0.0.0.0'
 
-// App
 const app = express()
-app.use(cors())
 
 let collection = null
 
@@ -35,8 +35,8 @@ MongoClient.connect(mongoUrl, {
     next()
   })
 
-  app.use('/api', require('./routes/api'))
-  app.all('*', require('./routes/not-found'))
+  app.use('/api', apiRoute)
+  app.all('*', notFoundRoute)
 
   app.listen(PORT, HOST)
   debug(`Running on http://${HOST}:${PORT}`)

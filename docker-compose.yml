@@ -1,14 +1,13 @@
 version: "3"
 services:
-  app:
-    container_name: express
+  express-api:
+    image: node:alpine
+    container_name: express-nodemon
     restart: always
-    build: ./
-    ports:
-      - "3000:3000"
+    working_dir: /app
     volumes:
       - .:/app
-    entrypoint: /bin/sh -c "npm install && nodemon server.js"
+    entrypoint: /bin/sh -c "npm install && ./node_modules/.bin/nodemon server.js"
     links:
       - mongodb
     depends_on:
@@ -21,3 +20,21 @@ services:
       - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./db:/data/db
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 8082:80
+    volumes:
+      - ./nginx/src:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - express-api
+      - react
+  react:
+    image: node:alpine
+    container_name: react
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./client:/app
+    entrypoint: /bin/sh -c "npm install && npm run start"
