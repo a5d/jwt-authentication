@@ -11,7 +11,7 @@ module.exports = {
   "settings": {
     "import/resolver": {
       "node": {
-        "paths": ["node_modules", 'client/node_modules'],
+        "paths": ["client", "node_modules", 'client/node_modules'],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     },
