@@ -7,6 +7,14 @@
     "start": "set DEBUG=* & nodemon server.js",
     "lint": "eslint ."
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx)": ["npm run lint", "git add"]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/a5d/jwt.git"
@@ -37,6 +45,8 @@
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.0",
     "prettier": "1.17.1"
   }
 }
