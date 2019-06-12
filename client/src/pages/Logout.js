@@ -12,7 +12,6 @@ class LogoutPage extends Component {
     const {onLogouted} = this.props
 
     logoutService()
-      .then(res => res.json())
       .then(data => {
         if (data.error) {
           console.error(data.error)

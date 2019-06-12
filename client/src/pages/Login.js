@@ -28,7 +28,6 @@ class LoginPage extends Component {
     e.preventDefault()
 
     loginService({password, email})
-      .then(res => res.json())
       .then(data => {
         if (data.error) {
           this.setState({...data})
@@ -44,39 +43,39 @@ class LoginPage extends Component {
     const {email, password, error} = this.state
     const {auth} = this.props
 
-    if (auth === false) {
+    if (auth) {
       return (
         <div>
-          <p>{error}</p>
-          <form onSubmit={this.submitForm}>
-            <p>
-              <input
-                name='email'
-                onChange={this.updateInput}
-                placeholder='E-mail'
-                type="text"
-                value={email}
-              />
-            </p>
-            <p><input
-              name='password'
-              onChange={this.updateInput}
-              placeholder='Пароль'
-              type="password"
-              value={password}
-            />
-            </p>
-            <p>
-              <button type="submit">Отправить</button>
-            </p>
-          </form>
+          <p>Вы вошли</p>
         </div>
       )
     }
 
     return (
       <div>
-        <p>Вы вошли</p>
+        <p>{error}</p>
+        <form onSubmit={this.submitForm}>
+          <p>
+            <input
+              name='email'
+              onChange={this.updateInput}
+              placeholder='E-mail'
+              type="text"
+              value={email}
+            />
+          </p>
+          <p><input
+            name='password'
+            onChange={this.updateInput}
+            placeholder='Пароль'
+            type="password"
+            value={password}
+          />
+          </p>
+          <p>
+            <button type="submit">Отправить</button>
+          </p>
+        </form>
       </div>
     )
   }

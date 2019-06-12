@@ -13,7 +13,6 @@ class ProfilePage extends Component {
 
     if (auth) {
       profileService()
-        .then(res => res.json())
         .then(data => {
           if (data.error) {
             this.setState({...data})

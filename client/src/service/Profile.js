@@ -1,9 +1,5 @@
-const profileService = () => {
-  return fetch(`${process.env.API_URL}profile`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {'content-type': 'application/json'}
-  })
-}
+import baseHttp from './baseHttp'
+
+const profileService = () => baseHttp('GET', 'profile')
 
 export default profileService

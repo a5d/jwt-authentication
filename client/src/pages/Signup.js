@@ -27,7 +27,6 @@ class SignupPage extends Component {
     const {email, password} = this.state
 
     signupService({password, email})
-      .then(res => res.json())
       .then(data => {
         if (data.error) {
           this.setState({...data})
@@ -43,11 +42,11 @@ class SignupPage extends Component {
     const {email, password, complete, error} = this.state
     const {auth} = this.props
 
-    if (complete === true) {
+    if (complete) {
       return <p>Регистрация завершена</p>
     }
 
-    if (auth === true) {
+    if (auth) {
       return <p>Вы уже зарегистрированы</p>
 
     }

@@ -1,13 +1,5 @@
-const signupService = ({password, email}) => {
-  return fetch(`${process.env.API_URL}signup`, {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify({
-      email,
-      password
-    }),
-    headers: {'content-type': 'application/json'}
-  })
-}
+import baseHttp from './baseHttp'
+
+const signupService = payload => baseHttp('POST', 'signup', payload)
 
 export default signupService
