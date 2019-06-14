@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import Button from '@material-ui/core/Button';
 import loginService from '../service/Login'
 
 class LoginPage extends Component {
@@ -72,7 +73,7 @@ class LoginPage extends Component {
           />
           </p>
           <p>
-            <button type="submit">Отправить</button>
+            <Button variant="contained" type="submit" color="primary">Отправить</Button>
           </p>
         </form>
       </div>
