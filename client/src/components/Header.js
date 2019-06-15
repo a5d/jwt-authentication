@@ -1,21 +1,72 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types';
+import {AppBar, Toolbar, Typography, Link as MUILink} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+import * as PropTypes from 'prop-types'
+
+const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white,
+      padding: 0,
+      margin: 0
+    },
+  },
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  toolbarTitle: {
+    flexGrow: 1,
+    textDecoration: 'none'
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+  },
+}))
+
+const MenuLink = (props) => {
+  const classes = useStyles()
+  const {to, children} = props
+
+  return (
+    <MUILink
+      component={Link}
+      to={to}
+      variant="button"
+      color="textPrimary"
+      className={classes.link}
+    >{children}
+    </MUILink>
+  )
+}
+
+MenuLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired
+}
 
 const Header = (props) => {
   const {auth} = props
+  const classes = useStyles()
+
   return (
-    <nav>
-      <Link to='/'>Home</Link> |
-      {(!auth) ? <span><Link to='/signup'>Signup</Link></span> :
-      <span><Link to='/profile'>Profile</Link> | </span>}
-      {(auth) ? <span><Link to='/logout'>Logout</Link></span> : ''}
-    </nav>
+    <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <Toolbar>
+        <Typography component={Link} to="/" variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          React auth with JWT
+        </Typography>
+        <nav>
+          {(!auth) ? <MenuLink to="/signup">Signup</MenuLink>
+            : <MenuLink to="/profile">Profile</MenuLink>}
+          {auth && <MenuLink to="/logout">Logout</MenuLink>}
+        </nav>
+      </Toolbar>
+    </AppBar>
   )
 }
 
 Header.propTypes = {
   auth: PropTypes.bool.isRequired,
-};
+}
 
 export default Header

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-import LoginPage from './pages/Login'
+import LoginPage from './containers/Login'
 import SignupPage from './pages/Signup'
 import ProfilePage from './pages/Profile'
 import LogoutPage from './pages/Logout'
