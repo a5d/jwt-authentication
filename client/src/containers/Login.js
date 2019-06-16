@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import * as PropTypes from 'prop-types'
+import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
+import {LockOutlined} from '@material-ui/icons'
+import {Link} from 'react-router-dom'
+
 import loginService from '../service/Login'
-import Login from '../pages/Login'
+import Form from '../pages/Form'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -44,13 +48,27 @@ class LoginPage extends Component {
 
     if (auth) {
       return (
-        <div>
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
           <p>Вы вошли</p>
-        </div>
+        </Container>
       )
     }
 
-    return <Login {...this.state} onSubmit={this.submitForm} updateInput={this.updateInput} />
+    return (
+      <Form
+        {...this.state}
+        onSubmit={this.submitForm}
+        updateInput={this.updateInput}
+        name="Sign in"
+        icon={<LockOutlined />}
+        link={(
+          <MUILink component={Link} to="/signup" variant="body2">
+            {'Don\'t have an account? Sign up'}
+          </MUILink>
+        )}
+      />
+    )
   }
 }
 

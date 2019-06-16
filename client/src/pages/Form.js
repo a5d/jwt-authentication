@@ -1,17 +1,10 @@
 import React from 'react'
 import * as PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-import {Button, Container, CssBaseline, Avatar, Typography, TextField, Grid, Link as MUILink} from '@material-ui/core';
-import {LockOutlined} from '@material-ui/icons';
+import {Button, Container, CssBaseline, Avatar, Typography, TextField, Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -23,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -31,19 +24,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Login = (props) => {
+const Form = (props) => {
   const classes = useStyles();
-  const {email, password, error, onSubmit, updateInput} = props
+  const {email, password, error, onSubmit, updateInput, icon, name, link} = props
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlined />
+          {icon}
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {name}
         </Typography>
         <p>{error}</p>
         <form onSubmit={onSubmit} className={classes.form} noValidate>
@@ -80,14 +73,12 @@ const Login = (props) => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            {name}
           </Button>
           <Grid container>
             <Grid item xs> </Grid>
             <Grid item>
-              <MUILink component={Link} to="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </MUILink>
+              {link}
             </Grid>
           </Grid>
         </form>
@@ -96,12 +87,15 @@ const Login = (props) => {
   )
 }
 
-Login.propTypes = {
+Form.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   updateInput: PropTypes.func.isRequired,
+  icon: PropTypes.node.isRequired,
+  link: PropTypes.node.isRequired,
 }
 
-export default Login
+export default Form

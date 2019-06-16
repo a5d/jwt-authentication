@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import logoutService from '../service/Logout'
+import * as PropTypes from 'prop-types'
+import {Container, CssBaseline} from '@material-ui/core'
 
+import logoutService from '../service/Logout'
 
 class LogoutPage extends Component {
   componentDidMount() {
@@ -25,18 +26,12 @@ class LogoutPage extends Component {
 
   render() {
     const {auth} = this.props
-    if (auth) {
-      return (
-        <div>
-          <p>Выход...</p>
-        </div>
-      )
-    }
 
     return (
-      <div>
-        <p>Вы вышли</p>
-      </div>
+      <Container component="main" maxWidth="md">
+        <CssBaseline />
+        {(auth) ? <p>Выход...</p> : <p>Вы вышли</p>}
+      </Container>
     )
   }
 }

@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
+import {Container, CssBaseline} from '@material-ui/core'
+
 import profileService from '../service/Profile'
 
 class ProfilePage extends Component {
@@ -29,11 +31,12 @@ class ProfilePage extends Component {
     const {error, profile} = this.state
 
     return (
-      <div>
-        <p>Profile Page</p>
+      <Container component="main" maxWidth="md">
+        <CssBaseline />
+        <h2>Profile Page</h2>
         <p>{error}</p>
         <p>{JSON.stringify(profile)}</p>
-      </div>
+      </Container>
     )
   }
 }

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import LoginPage from './containers/Login'
-import SignupPage from './pages/Signup'
+import SignupPage from './containers/Signup'
 import ProfilePage from './pages/Profile'
 import LogoutPage from './pages/Logout'
 import Header from './components/Header'

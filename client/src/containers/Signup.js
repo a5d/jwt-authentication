@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
+import * as PropTypes from 'prop-types'
+import {Face} from '@material-ui/icons'
+import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
+import {Link} from 'react-router-dom'
 import signupService from '../service/Signup'
+import Form from '../pages/Form'
 
 class SignupPage extends Component {
   constructor(props) {
@@ -39,45 +43,42 @@ class SignupPage extends Component {
   }
 
   render() {
-    const {email, password, complete, error} = this.state
+    const {complete} = this.state
     const {auth} = this.props
 
     if (complete) {
-      return <p>Регистрация завершена</p>
+      return (
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <p>Регистрация завершена</p>
+        </Container>
+      )
     }
 
+
     if (auth) {
-      return <p>Вы уже зарегистрированы</p>
+      return (
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <p>Вы уже зарегистрированы</p>
+        </Container>
+      )
 
     }
 
     return (
-      <div>
-        <h3>Signup</h3>
-        <p>{error}</p>
-        <form onSubmit={this.submitForm}>
-          <p>
-            <input
-              name='email'
-              onChange={this.updateInput}
-              placeholder='E-mail'
-              type="text"
-              value={email}
-            />
-          </p>
-          <p><input
-            name='password'
-            onChange={this.updateInput}
-            placeholder='Пароль'
-            type="password"
-            value={password}
-          />
-          </p>
-          <p>
-            <button type="submit">Отправить</button>
-          </p>
-        </form>
-      </div>
+      <Form
+        {...this.state}
+        onSubmit={this.submitForm}
+        updateInput={this.updateInput}
+        name="Sign up"
+        icon={<Face />}
+        link={(
+          <MUILink component={Link} to="/" variant="body2">
+            {'Do you have an account? Sign in'}
+          </MUILink>
+        )}
+      />
     )
   }
 }
