@@ -1,23 +1,25 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Container, CssBaseline} from '@material-ui/core'
+import {logOut} from '../actions'
 
 import logoutService from '../service/Logout'
 
 class LogoutPage extends Component {
   componentDidMount() {
-    this.logOut()
+    this.userLogOut()
   }
 
-  logOut() {
-    const {onLogouted} = this.props
+  userLogOut() {
+    const {logOut} = this.props
 
     logoutService()
       .then(data => {
         if (data.error) {
           console.error(data.error)
         } else {
-          onLogouted()
+          logOut()
         }
 
       })
@@ -38,7 +40,13 @@ class LogoutPage extends Component {
 
 LogoutPage.propTypes = {
   auth: PropTypes.bool.isRequired,
-  onLogouted: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
 };
 
-export default LogoutPage
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, {logOut})(LogoutPage)

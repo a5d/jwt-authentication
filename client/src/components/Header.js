@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {AppBar, Toolbar, Typography, Link as MUILink} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
@@ -69,4 +70,10 @@ Header.propTypes = {
   auth: PropTypes.bool.isRequired,
 }
 
-export default Header
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Header)

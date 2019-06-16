@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
 import {LockOutlined} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
+import {logIn} from '../actions'
 
 import loginService from '../service/Login'
 import Form from '../pages/Form'
@@ -27,7 +29,7 @@ class LoginPage extends Component {
 
   submitForm(e) {
     const {email, password} = this.state
-    const {onLogged} = this.props
+    const {logIn} = this.props
 
     e.preventDefault()
 
@@ -36,7 +38,7 @@ class LoginPage extends Component {
         if (data.error) {
           this.setState({...data})
         } else {
-          onLogged()
+          logIn()
         }
 
       })
@@ -74,7 +76,13 @@ class LoginPage extends Component {
 
 LoginPage.propTypes = {
   auth: PropTypes.bool.isRequired,
-  onLogged: PropTypes.func.isRequired,
+  logIn: PropTypes.func.isRequired,
 }
 
-export default LoginPage
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, {logIn})(LoginPage)

@@ -7,7 +7,8 @@ module.exports = {
     "react/jsx-one-expression-per-line": [0],
     "no-console": 0,
     "no-alert": 0,
-    "import/no-unresolved": [0]
+    "import/no-unresolved": [0],
+    "no-shadow": "off",
   },
   "env": {
     "browser": true,

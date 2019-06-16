@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Container, CssBaseline} from '@material-ui/core'
 
@@ -45,4 +46,10 @@ ProfilePage.propTypes = {
   auth: PropTypes.bool.isRequired
 }
 
-export default ProfilePage
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(ProfilePage)
