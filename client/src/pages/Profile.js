@@ -30,13 +30,24 @@ class ProfilePage extends Component {
 
   render() {
     const {error, profile} = this.state
+    const {auth} = this.props
+
+    if (auth) {
+      return (
+        <Container component="main" maxWidth="md">
+          <CssBaseline />
+          <h2>Profile Page</h2>
+          <p>{error}</p>
+          <p>{JSON.stringify(profile)}</p>
+        </Container>
+      )
+    }
 
     return (
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <h2>Profile Page</h2>
-        <p>{error}</p>
-        <p>{JSON.stringify(profile)}</p>
+        <p>Need auth</p>
       </Container>
     )
   }

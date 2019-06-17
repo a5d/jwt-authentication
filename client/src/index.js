@@ -9,6 +9,7 @@ import SignupPage from './containers/Signup'
 import ProfilePage from './pages/Profile'
 import LogoutPage from './pages/Logout'
 import Header from './components/Header'
+import Auth from './containers/Auth'
 import reducers from './reducers'
 
 import './favicon.ico'
@@ -18,13 +19,15 @@ const store = createStore(reducers)
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Header />
-      <Switch>
-        <Route exact path='/' render={() => <LoginPage />} />
-        <Route path='/signup' render={() => <SignupPage />} />
-        <Route path='/profile' render={() => <ProfilePage />} />
-        <Route path='/logout' render={() => <LogoutPage />} />
-      </Switch>
+      <Auth>
+        <Header />
+        <Switch>
+          <Route exact path='/' render={() => <LoginPage />} />
+          <Route path='/signup' render={() => <SignupPage />} />
+          <Route path='/profile' render={() => <ProfilePage />} />
+          <Route path='/logout' render={() => <LogoutPage />} />
+        </Switch>
+      </Auth>
     </BrowserRouter>
   </Provider>
 )
