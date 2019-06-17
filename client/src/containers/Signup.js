@@ -5,7 +5,7 @@ import {Face} from '@material-ui/icons'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import signupService from '../service/Signup'
-import LoginForm from '../pages/Form'
+import LoginForm from '../pages/loginForm'
 
 class SignupPage extends Component {
   constructor(props) {

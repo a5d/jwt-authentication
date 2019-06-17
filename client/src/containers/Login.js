@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {logIn} from '../actions'
 
 import loginService from '../service/Login'
-import LoginForm from '../pages/Form'
+import LoginForm from '../pages/loginForm'
 
 class LoginPage extends Component {
   constructor(props) {
