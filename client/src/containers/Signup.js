@@ -5,7 +5,7 @@ import {Face} from '@material-ui/icons'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import signupService from '../service/Signup'
-import Form from '../pages/Form'
+import LoginForm from '../pages/Form'
 
 class SignupPage extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class SignupPage extends Component {
     }
 
     return (
-      <Form
+      <LoginForm
         {...this.state}
         onSubmit={this.submitForm}
         updateInput={this.updateInput}

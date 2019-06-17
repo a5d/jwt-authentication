@@ -57,8 +57,8 @@ const Header = (props) => {
           React auth with JWT
         </Typography>
         <nav>
-          {(!auth) ? <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>
-            : <MenuLink to="/profile">Profile</MenuLink>}
+          {auth ? <MenuLink to="/profile">Profile</MenuLink>
+            : <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
           {auth && <MenuLink to="/logout">Logout</MenuLink>}
         </nav>
       </Toolbar>

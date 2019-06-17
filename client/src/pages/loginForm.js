@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Form = (props) => {
+const LoginForm = (props) => {
   const classes = useStyles();
   const {email, password, error, onSubmit, updateInput, icon, name, link} = props
 
@@ -87,7 +87,7 @@ const Form = (props) => {
   )
 }
 
-Form.propTypes = {
+LoginForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
@@ -98,4 +98,4 @@ Form.propTypes = {
   link: PropTypes.node.isRequired,
 }
 
-export default Form
+export default LoginForm

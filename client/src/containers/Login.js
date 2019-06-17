@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {logIn} from '../actions'
 
 import loginService from '../service/Login'
-import Form from '../pages/Form'
+import LoginForm from '../pages/Form'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class LoginPage extends Component {
     }
 
     return (
-      <Form
+      <LoginForm
         {...this.state}
         onSubmit={this.submitForm}
         updateInput={this.updateInput}
