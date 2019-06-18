@@ -12,6 +12,7 @@ import LogoutPage from './pages/Logout'
 import Header from './components/Header'
 import Auth from './containers/Auth'
 import reducers from './reducers'
+import ProtectedRouter from './containers/ProtectedRouter'
 
 import './favicon.ico'
 
@@ -25,7 +26,7 @@ const App = hot(() => (
         <Switch>
           <Route exact path='/' render={() => <LoginPage />} />
           <Route path='/signup' render={() => <SignupPage />} />
-          <Route path='/profile' render={() => <ProfilePage />} />
+          <ProtectedRouter path='/profile' component={ProfilePage} />
           <Route path='/logout' render={() => <LogoutPage />} />
         </Switch>
       </Auth>
