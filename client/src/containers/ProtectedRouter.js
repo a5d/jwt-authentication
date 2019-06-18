@@ -4,7 +4,6 @@ import {Route, Redirect} from 'react-router-dom'
 import * as PropTypes from 'prop-types'
 
 const ProtectedRouter = ({component: Component, auth, ...rest}) => {
-  console.log(auth)
   return (
     <Route
       {...rest}
