@@ -9,6 +9,7 @@ module.exports = {
     "no-alert": 0,
     "import/no-unresolved": [0],
     "no-shadow": "off",
+    "import/no-extraneous-dependencies": [0],
   },
   "env": {
     "browser": true,
