@@ -1,10 +1,15 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
+const webpack = require('webpack');
 
 module.exports = {
   devServer: {
     host: '0.0.0.0',
-    historyApiFallback: true
+    historyApiFallback: true,
+    hot: true
+  },
+  entry: {
+    app: './src/index.js'
   },
   watchOptions: {
     aggregateTimeout: 300,
@@ -38,6 +43,7 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html'
     }),
-    new Dotenv()
+    new Dotenv(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 }

@@ -54,7 +54,7 @@ const Header = (props) => {
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar>
         <Typography component={Link} to="/" variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          React auth with JWT
+          React auth with JWT 1
         </Typography>
         <nav>
           {auth ? <MenuLink to="/profile">Profile</MenuLink>
