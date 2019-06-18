@@ -1,9 +1,9 @@
 # jwt
 
-Run
+Run: 
 docker-compose up
 
-Stop
+Stop: 
 docker-compose down
 
 Routes:
