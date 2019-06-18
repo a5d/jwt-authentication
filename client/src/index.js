@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { hot } from 'react-hot-loader/root'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
@@ -16,7 +17,7 @@ import './favicon.ico'
 
 const store = createStore(reducers)
 
-const App = () => (
+const App = hot(() => (
   <Provider store={store}>
     <BrowserRouter>
       <Auth>
@@ -30,6 +31,9 @@ const App = () => (
       </Auth>
     </BrowserRouter>
   </Provider>
-)
+))
+
+
 
 ReactDOM.render(<App />, document.getElementById('app'))
+
