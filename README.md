@@ -1,4 +1,6 @@
-# jwt
+# jwt-authentication
+
+Use: Express, React, Webpack
 
 Run: 
 docker-compose up
