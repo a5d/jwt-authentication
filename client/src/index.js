@@ -26,7 +26,7 @@ const App = hot(() => (
         <Switch>
           <Route exact path='/' render={() => <LoginPage />} />
           <Route path='/signup' render={() => <SignupPage />} />
-          <ProtectedRouter path='/profile' component={ProfilePage} />
+          <ProtectedRouter path='/profile' render={() => <ProfilePage />} />
           <Route path='/logout' render={() => <LogoutPage />} />
         </Switch>
       </Auth>

@@ -3,19 +3,19 @@ import {connect,} from 'react-redux'
 import {Route, Redirect} from 'react-router-dom'
 import * as PropTypes from 'prop-types'
 
-const ProtectedRouter = ({component: Component, auth, ...rest}) => {
+const ProtectedRouter = ({render, auth, ...rest}) => {
+  const renderFunc = auth ? render : () => <Redirect to='/' />
+
   return (
     <Route
       {...rest}
-      render={(props) => (
-        auth ? <Component {...props} /> : <Redirect to='/' />
-      )}
+      render={renderFunc}
     />
   )
 }
 
 ProtectedRouter.propTypes = {
-  component: PropTypes.element.isRequired,
+  render: PropTypes.func.isRequired,
   auth: PropTypes.bool.isRequired,
 }
 
