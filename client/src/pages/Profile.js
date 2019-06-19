@@ -1,38 +1,32 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as PropTypes from 'prop-types'
 import {Container, CssBaseline} from '@material-ui/core'
 
 import profileService from '../service/Profile'
 
 class ProfilePage extends Component {
   state = {
-    profile: {},
+    profile: false,
     error: ''
   }
 
   componentDidMount() {
-    const {auth} = this.props
+	  profileService()
+		.then(data => {
+		  if (data.error) {
+				this.setState({...data})
+		  } else {
+				this.setState({profile: data})
+		  }
 
-    if (auth) {
-      profileService()
-        .then(data => {
-          if (data.error) {
-            this.setState({...data})
-          } else {
-            this.setState({profile: data})
-          }
-
-        })
-        .catch(console.error)
-    }
+		})
+		.catch(console.error)
   }
 
   render() {
     const {error, profile} = this.state
-    const {auth} = this.props
 
-    if (auth) {
+    if (profile) {
       return (
         <Container component="main" maxWidth="md">
           <CssBaseline />
@@ -47,14 +41,10 @@ class ProfilePage extends Component {
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <h2>Profile Page</h2>
-        <p>Need auth</p>
+        <p>Loading...</p>
       </Container>
     )
   }
-}
-
-ProfilePage.propTypes = {
-  auth: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = state => {
