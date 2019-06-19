@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Container, CssBaseline} from '@material-ui/core'
 import {logOut} from '../actions'

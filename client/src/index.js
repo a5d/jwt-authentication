@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { hot } from 'react-hot-loader/root'
+import {hot} from 'react-hot-loader/root'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 
 import LoginPage from './containers/Login'
 import SignupPage from './containers/Signup'

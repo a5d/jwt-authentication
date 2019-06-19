@@ -10,6 +10,7 @@ module.exports = {
     "import/no-unresolved": [0],
     "no-shadow": "off",
     "import/no-extraneous-dependencies": [0],
+    "object-curly-spacing": ["error", "never"]
   },
   "env": {
     "browser": true,

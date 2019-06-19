@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Face} from '@material-ui/icons'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'

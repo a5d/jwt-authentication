@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import * as PropTypes from 'prop-types'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
 import {LockOutlined} from '@material-ui/icons'
