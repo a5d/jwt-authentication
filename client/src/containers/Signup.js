@@ -7,6 +7,11 @@ import {Link} from 'react-router-dom'
 import signupService from '../service/Signup'
 import LoginForm from '../pages/loginForm'
 
+const validateEmail = (email) => {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 class SignupPage extends Component {
   constructor(props) {
     super(props)
@@ -15,15 +20,39 @@ class SignupPage extends Component {
       'complete': false,
       'error': '',
       'email': '123',
-      'password': '123'
+      'password': '123',
+      'emailError': '',
+      'passwordError': '',
     }
 
     this.submitForm = this.submitForm.bind(this)
     this.updateInput = this.updateInput.bind(this)
+    this.validateForm = this.validateForm.bind(this)
   }
 
   updateInput(e) {
     this.setState({[e.currentTarget.name]: e.currentTarget.value})
+  }
+
+  validateForm() {
+    const {email, password} = this.state
+    let sendForm = true;
+
+    if (!validateEmail(email)) {
+      this.setState({emailError: 'Wrong email'})
+      sendForm = false
+    } else {
+      this.setState({emailError: ''})
+    }
+
+    if (password.length < 5 || password.length > 10) {
+      this.setState({passwordError: 'Wrong password length 5-10'})
+      sendForm = false
+    } else {
+      this.setState({passwordError: ''})
+    }
+
+    return sendForm
   }
 
   submitForm(e) {
@@ -31,16 +60,18 @@ class SignupPage extends Component {
 
     const {email, password} = this.state
 
-    signupService({password, email})
-      .then(data => {
-        if (data.error) {
-          this.setState({...data})
-        } else {
-          this.setState({complete: true})
-        }
+    if (this.validateForm()) {
+      signupService({password, email})
+        .then(data => {
+          if (data.error) {
+            this.setState({...data})
+          } else {
+            this.setState({complete: true})
+          }
 
-      })
-      .catch(console.error)
+        })
+        .catch(console.error)
+    }
   }
 
   render() {

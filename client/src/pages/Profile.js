@@ -26,7 +26,7 @@ class ProfilePage extends Component {
   render() {
     const {error, profile} = this.state
 
-    if (profile) {
+    if (profile || error) {
       return (
         <Container component="main" maxWidth="md">
           <CssBaseline />

@@ -21,11 +21,14 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  error: {
+    color: 'red',
+  },
 }));
 
 const LoginForm = (props) => {
   const classes = useStyles();
-  const {email, password, error, onSubmit, updateInput, icon, name, link} = props
+  const {email, password, error, onSubmit, updateInput, icon, name, link, emailError, passwordError} = props
 
   return (
     <Container component="main" maxWidth="xs">
@@ -37,7 +40,7 @@ const LoginForm = (props) => {
         <Typography component="h1" variant="h5">
           {name}
         </Typography>
-        <p>{error}</p>
+        <p className={classes.error}>{error}</p>
         <form onSubmit={onSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -52,6 +55,7 @@ const LoginForm = (props) => {
             onChange={updateInput}
             value={email}
           />
+          <div className={classes.error}>{emailError}</div>
           <TextField
             variant="outlined"
             margin="normal"
@@ -65,6 +69,7 @@ const LoginForm = (props) => {
             onChange={updateInput}
             value={password}
           />
+          <div className={classes.error}>{passwordError}</div>
           <Button
             type="submit"
             fullWidth
@@ -89,6 +94,8 @@ const LoginForm = (props) => {
 LoginForm.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
+  emailError: PropTypes.string.isRequired,
+  passwordError: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
