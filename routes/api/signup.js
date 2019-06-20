@@ -10,7 +10,7 @@ const router = (req, res) => {
       } else if (users.length > 0) {
         res.status(400).json({error: 'Email already use'})
       } else {
-        bcrypt.hash(password, 'test', null,  (err, hash) => {
+        bcrypt.hash(password, 10, null,  (err, hash) => {
           if (err) {
             res.status(400).json({error: err.message})
             return

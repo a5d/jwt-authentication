@@ -5,15 +5,15 @@ const {privateKey} = require('../../config')
 const router = (req, res) => {
   const {email, password} = req.body
 
-  bcrypt.hash(password, 'test', null, (err, hash) => {
+  bcrypt.hash(password, 10, null, (err, hash) => {
     if (err) {
-      res.status(400).json({error: err})
+      res.status(400).json({error: err.message})
       return
     }
 
     req.db.find({email, password: hash}).limit(1).toArray((err, users) => {
       if (err) {
-        res.status(400).json({error: err})
+        res.status(400).json({error: err.message})
         return
       }
 
