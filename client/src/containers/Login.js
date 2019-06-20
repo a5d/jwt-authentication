@@ -66,7 +66,7 @@ class LoginPage extends Component {
       loginService({password, email})
         .then(data => {
           if (data.error) {
-            this.setState({error: 'Not found user with this email and password'})
+            this.setState({error: data.error})
           } else {
             logIn()
           }
