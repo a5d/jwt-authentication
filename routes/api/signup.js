@@ -11,10 +11,10 @@ const router = (req, res) => {
         res.status(400).json({error: 'Email already use'})
       } else {
         bcrypt.hash(password, 10, null,  (err, hash) => {
-          if (err) {
+          /*  if (err) {
             res.status(400).json({error: err.message})
             return
-          }
+          } */
 
           req.db.insertOne({email, password: hash}, (err2) => {
             if (err2) {

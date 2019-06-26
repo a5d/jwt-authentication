@@ -6,10 +6,10 @@ const router = (req, res) => {
   const {email, password} = req.body
 
   bcrypt.hash(password, 10, null, (err, hash) => {
-    if (err) {
+    /* if (err) {
       res.status(400).json({error: err.message})
       return
-    }
+    } */
 
     req.db.find({email, password: hash}).limit(1).toArray((err, users) => {
       if (err) {
