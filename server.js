@@ -15,7 +15,7 @@ const HOST = serverHost
 
 const app = express()
 app.use(cors({
-  origin: `http://{serverHost}:8080`,
+  origin: `http://${serverHost}:8080`,
   credentials: true,
 }))
 
