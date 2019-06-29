@@ -1,10 +1,11 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 module.exports = {
   devServer: {
-    host: '0.0.0.0',
+    host: dotenv.SERVER_HOST,
     historyApiFallback: true,
     hot: true
   },
