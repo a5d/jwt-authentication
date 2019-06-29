@@ -1,48 +1,56 @@
 {
-  "name": "react-auth-with-jwt",
+  "name": "jwt-express-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "jwt express login api",
+  "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --mode production",
-    "test": "jest"
+    "start": "set DEBUG=* & nodemon server.js",
+    "lint": "eslint ."
   },
-  "keywords": [
-    "react",
-    "jwt",
-    "login",
-    "signup"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js|jsx)": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a5d/jwt.git"
+  },
   "author": "a5d <5108591@mail.ru>",
   "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-jest": "^24.8.0",
-    "babel-loader": "^8.0.6",
-    "dotenv-webpack": "^1.7.0",
-    "eslint-plugin-jest": "^22.6.4",
-    "file-loader": "^4.0.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.8.0",
-    "react-hot-loader": "^4.11.1",
-    "react-test-renderer": "^16.8.6",
-    "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.6.0"
+  "bugs": {
+    "url": "https://github.com/a5d/jwt/issues"
   },
+  "homepage": "https://github.com/a5d/jwt#readme",
   "dependencies": {
-    "@material-ui/core": "^4.1.1",
-    "@material-ui/icons": "^4.2.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1"
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.2.6",
+    "nodemon": "^1.19.1",
+    "swagger-ui-express": "^4.0.5"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "husky": "^2.4.1",
+    "lint-staged": "^8.2.0",
+    "prettier": "1.17.1"
   }
 }
