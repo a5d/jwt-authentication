@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "a5d@mail.ru",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "email": "test@mail.ru",
+      "password": "555555"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
