@@ -16,8 +16,8 @@ class LoginPage extends Component {
     super(props)
 
     this.state = {
-      'email': '123',
-      'password': '123',
+      'email': '',
+      'password': '',
       'error': '',
       'emailError': '',
       'passwordError': '',

@@ -16,8 +16,8 @@ class SignupPage extends Component {
     this.state = {
       'complete': false,
       'error': '',
-      'email': '123',
-      'password': '123',
+      'email': '',
+      'password': '',
       'emailError': '',
       'passwordError': '',
     }
