@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 module.exports = {
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     historyApiFallback: true,
     hot: true
   },
