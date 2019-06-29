@@ -1,42 +1,40 @@
-import React, {Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
+import {hot} from 'react-hot-loader/root'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 
-import LoginPage from './pages/Login'
-import SignupPage from './pages/Signup'
+import LoginPage from './containers/Login'
+import SignupPage from './containers/Signup'
 import ProfilePage from './pages/Profile'
 import LogoutPage from './pages/Logout'
 import Header from './components/Header'
+import Auth from './containers/Auth'
+import reducers from './reducers'
+import ProtectedRouter from './containers/ProtectedRouter'
 
 import './favicon.ico'
 
-class App extends Component {
-  state = {
-    auth: false
-  }
+const store = createStore(reducers)
 
-  logIn = () => {
-    this.setState({auth: true})
-  }
-
-  logOut = () => {
-    this.setState({auth: false})
-  }
-
-  render() {
-    const {auth} = this.state
-    return (
-      <BrowserRouter>
-        <Header auth={auth} />
+const App = hot(() => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Auth>
+        <Header />
         <Switch>
-          <Route exact path='/' render={() => <LoginPage onLogged={this.logIn} auth={auth} />} />
-          <Route path='/signup' render={() => <SignupPage auth={auth} />} />
-          <Route path='/profile' render={() => <ProfilePage auth={auth} />} />
-          <Route path='/logout' render={() => <LogoutPage onLogouted={this.logOut} auth={auth} />} />
+          <Route exact path='/' render={() => <LoginPage />} />
+          <Route path='/signup' render={() => <SignupPage />} />
+          <ProtectedRouter path='/profile' render={() => <ProfilePage />} />
+          <Route path='/logout' render={() => <LogoutPage />} />
         </Switch>
-      </BrowserRouter>
-    )
-  }
-}
+      </Auth>
+    </BrowserRouter>
+  </Provider>
+))
+
+
 
 ReactDOM.render(<App />, document.getElementById('app'))
+

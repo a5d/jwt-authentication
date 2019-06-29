@@ -1,21 +1,40 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
+import * as PropTypes from 'prop-types'
+import {AppBar, Toolbar, Typography} from '@material-ui/core'
+import useStyles from './Header.css'
+import MenuLink from './MenuLink'
+
 
 const Header = (props) => {
   const {auth} = props
+  const classes = useStyles()
+
   return (
-    <nav>
-      <Link to='/'>Home</Link> |
-      {(!auth) ? <span><Link to='/signup'>Signup</Link></span> :
-      <span><Link to='/profile'>Profile</Link> | </span>}
-      {(auth) ? <span><Link to='/logout'>Logout</Link></span> : ''}
-    </nav>
+    <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+      <Toolbar>
+        <Typography component={Link} to="/" variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          React auth with JWT
+        </Typography>
+        <nav>
+          {auth ? <MenuLink to="/profile">Profile</MenuLink>
+            : <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
+          {auth && <MenuLink to="/logout">Logout</MenuLink>}
+        </nav>
+      </Toolbar>
+    </AppBar>
   )
 }
 
 Header.propTypes = {
   auth: PropTypes.bool.isRequired,
-};
+}
 
-export default Header
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Header)

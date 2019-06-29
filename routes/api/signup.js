@@ -1,20 +1,29 @@
+const bcrypt = require('bcrypt-nodejs');
+
 const router = (req, res) => {
-  const user = req.body
+  const {email, password} = req.body
 
   try {
-    req.db.find({email: user.email}).limit(1).toArray(async (err1, users) => {
+    req.db.find({email}).limit(1).toArray(async (err1, users) => {
       if (err1) {
         res.status(400).json({error: err1})
       } else if (users.length > 0) {
         res.status(400).json({error: 'Email already use'})
       } else {
-        req.db.insertOne(user, (err2) => {
-          if (err2) {
-            res.status(400).json({error: 'Insert Error'})
-          } else {
-            res.json({msg: 'Registered'})
-          }
-        })
+        bcrypt.hash(password, 10, null,  (err, hash) => {
+          /*  if (err) {
+            res.status(400).json({error: err.message})
+            return
+          } */
+
+          req.db.insertOne({email, password: hash}, (err2) => {
+            if (err2) {
+              res.status(400).json({error: 'Insert Error'})
+            } else {
+              res.json({msg: 'Registered'})
+            }
+          })
+        });
       }
     })
 
