@@ -4,12 +4,8 @@ import {hot} from 'react-hot-loader/root'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+import Loadable from 'react-loadable'
 
-import LoginPage from './containers/Login'
-import SignupPage from './containers/Signup'
-import ProfilePage from './pages/Profile'
-import LogoutPage from './pages/Logout'
-import Header from './components/Header'
 import Auth from './containers/Auth'
 import reducers from './reducers'
 import ProtectedRouter from './containers/ProtectedRouter'
@@ -18,16 +14,51 @@ import './favicon.ico'
 
 const store = createStore(reducers)
 
+const LoadableProfile = Loadable({
+  loader: () => import('./pages/Profile'),
+  loading() {
+    return <div>Loading Profile...</div>
+  }
+})
+
+const LoadableLogin = Loadable({
+  loader: () => import('./containers/Login'),
+  loading() {
+    return <div>Loading Login...</div>
+  }
+})
+
+const LoadableSignup = Loadable({
+  loader: () => import('./containers/Signup'),
+  loading() {
+    return <div>Loading Signup...</div>
+  }
+})
+
+const LoadableLogout = Loadable({
+  loader: () => import('./pages/Logout'),
+  loading() {
+    return <div>Loading Logout...</div>
+  }
+})
+
+const LoadableHeader = Loadable({
+  loader: () => import('./components/Header'),
+  loading() {
+    return <div>Loading Header...</div>
+  }
+})
+
 const App = hot(() => (
   <Provider store={store}>
     <BrowserRouter>
       <Auth>
-        <Header />
+        <LoadableHeader />
         <Switch>
-          <Route exact path='/' render={() => <LoginPage />} />
-          <Route path='/signup' render={() => <SignupPage />} />
-          <ProtectedRouter path='/profile' render={() => <ProfilePage />} />
-          <Route path='/logout' render={() => <LogoutPage />} />
+          <Route exact path='/' render={() => <LoadableLogin />} />
+          <Route path='/signup' render={() => <LoadableSignup />} />
+          <ProtectedRouter path='/profile' render={() => <LoadableProfile />} />
+          <Route path='/logout' render={() => <LoadableLogout />} />
         </Switch>
       </Auth>
     </BrowserRouter>
