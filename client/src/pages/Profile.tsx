@@ -4,11 +4,15 @@ import {Container, CssBaseline} from '@material-ui/core'
 
 import profileService from '../service/Profile'
 
-interface Props {
-    data: object
+interface State {
+    profile?: object
 }
 
-class ProfilePage extends Component<Props> {
+interface Props {
+    auth?: boolean
+}
+
+class ProfilePage extends Component<State> {
   public state = {
     profile: false,
     error: ''
@@ -51,6 +55,6 @@ class ProfilePage extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({auth}: {auth: boolean}): object => ({auth})
+const mapStateToProps = ({auth}: Props) => ({auth})
 
 export default connect(mapStateToProps)(ProfilePage)

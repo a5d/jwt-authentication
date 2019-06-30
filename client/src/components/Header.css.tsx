@@ -15,6 +15,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     textDecoration: 'none'
   },
+  logo: {
+    textDecoration: 'none',
+    color: '#000'
+  },
   link: {
     margin: theme.spacing(1, 1.5),
   },

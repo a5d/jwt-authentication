@@ -1,6 +1,5 @@
-import React, {Component} from 'react'
+import React, {ChangeEvent, Component, FormEvent} from 'react'
 import {connect} from 'react-redux'
-import * as PropTypes from 'prop-types'
 import {Container, CssBaseline, Link as MUILink} from '@material-ui/core'
 import {LockOutlined} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
@@ -10,9 +9,26 @@ import loginService from '../service/Login'
 import LoginForm from '../pages/loginForm'
 import validateEmail from '../service/validateEmail'
 
+interface Props {
+  logIn: () => void,
+  auth: boolean
+}
 
-class LoginPage extends Component {
-  constructor(props) {
+interface State {
+  email?: string,
+  password?: string,
+  error?: string,
+  emailError?: string,
+  passwordError?: string
+}
+
+interface Page {
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void,
+  updateInput: (e: ChangeEvent<HTMLInputElement>) => void,
+}
+
+class LoginPage extends Component<Props, State, Page> {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -28,32 +44,37 @@ class LoginPage extends Component {
     this.validateForm = this.validateForm.bind(this)
   }
 
-  updateInput(e) {
-    this.setState({[e.currentTarget.name]: e.currentTarget.value})
+  updateInput(e: ChangeEvent<HTMLInputElement>) {
+    const {name, value} = e.currentTarget
+    this.setState({[name]: value})
   }
 
   validateForm() {
     const {email, password} = this.state
     let sendForm = true;
 
-    if (!validateEmail(email)) {
-      this.setState({emailError: 'Wrong email'})
-      sendForm = false
-    } else {
-      this.setState({emailError: ''})
+    if (email) {
+      if (!validateEmail(email)) {
+        this.setState({emailError: 'Wrong email'})
+        sendForm = false
+      } else {
+        this.setState({emailError: ''})
+      }
     }
 
-    if (password.length < 5 || password.length > 10) {
-      this.setState({passwordError: 'Wrong password length 5-10'})
-      sendForm = false
-    } else {
-      this.setState({passwordError: ''})
+    if (password) {
+      if (password.length < 5 || password.length > 10) {
+        this.setState({passwordError: 'Wrong password length 5-10'})
+        sendForm = false
+      } else {
+        this.setState({passwordError: ''})
+      }
     }
 
     return sendForm
   }
 
-  submitForm(e) {
+  submitForm(e: FormEvent<HTMLFormElement>) {
     const {email, password} = this.state
     const {logIn} = this.props
 
@@ -101,14 +122,9 @@ class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {
-  auth: PropTypes.bool.isRequired,
-  logIn: PropTypes.func.isRequired,
-}
-
-const mapStateToProps = state => {
+const mapStateToProps = ({auth}: Props) => {
   return {
-    auth: state.auth
+    auth
   }
 }
 

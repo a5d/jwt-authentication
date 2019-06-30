@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as PropTypes from 'prop-types'
 import checkAuth from '../service/Check'
 import {logIn} from '../actions'
 
-class Auth extends Component {
+interface Props {
+  logIn: () => void
+}
+
+class Auth extends Component<Props> {
   state = {
     loaded: false
   }
@@ -34,11 +37,6 @@ class Auth extends Component {
 
     return <div>Loading...</div>
   }
-}
-
-Auth.propTypes = {
-  children: PropTypes.node.isRequired,
-  logIn: PropTypes.func.isRequired
 }
 
 export default connect(null, {logIn})(Auth)

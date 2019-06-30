@@ -14,7 +14,10 @@ module.exports = {
     compress: true
   },
   entry: {
-    app: './src/index.js'
+    app: './src/index.tsx'
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   watchOptions: {
     aggregateTimeout: 300,
@@ -23,7 +26,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|js)x?$/,
         exclude: '/node_modules/',
         use: [
           {

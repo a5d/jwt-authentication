@@ -1,5 +1,4 @@
-import React from 'react'
-import * as PropTypes from 'prop-types'
+import React, {ChangeEvent, FormEvent} from 'react'
 import {Button, Container, CssBaseline, Avatar, Typography, TextField, Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
@@ -26,7 +25,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginForm = (props) => {
+export interface Props {
+  email?: string,
+  password?: string,
+  error?: string,
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void,
+  updateInput?: (event: ChangeEvent<HTMLInputElement>) => void,
+  icon?: JSX.Element,
+  name?: string,
+  link?: JSX.Element,
+  emailError?: string,
+  passwordError?: string
+}
+
+const LoginForm = (props: Props) => {
   const classes = useStyles();
   const {email, password, error, onSubmit, updateInput, icon, name, link, emailError, passwordError} = props
 
@@ -40,7 +52,7 @@ const LoginForm = (props) => {
         <Typography component="h1" variant="h5">
           {name}
         </Typography>
-        <p className={classes.error}>{error}</p>
+        {error && <p className={classes.error}>{error}</p>}
         <form onSubmit={onSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -89,19 +101,6 @@ const LoginForm = (props) => {
       </div>
     </Container>
   )
-}
-
-LoginForm.propTypes = {
-  email: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  emailError: PropTypes.string.isRequired,
-  passwordError: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  updateInput: PropTypes.func.isRequired,
-  icon: PropTypes.node.isRequired,
-  link: PropTypes.node.isRequired,
 }
 
 export default LoginForm
