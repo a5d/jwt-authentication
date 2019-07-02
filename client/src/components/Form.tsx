@@ -38,7 +38,7 @@ export interface Props {
   passwordError?: string
 }
 
-const LoginForm = (props: Props) => {
+const Form = (props: Props) => {
   const classes = useStyles();
   const {email, password, error, onSubmit, updateInput, icon, name, link, emailError, passwordError} = props
 
@@ -103,4 +103,4 @@ const LoginForm = (props: Props) => {
   )
 }
 
-export default LoginForm
+export default Form

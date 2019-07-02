@@ -20,6 +20,10 @@ const Header = (props: Props) => {
           <Link className={classes.logo} to="/" >React auth with JWT</Link>
         </Typography>
         <nav>
+          <MenuLink to="/page1">Page1</MenuLink>
+          <MenuLink to="/page2">Page2</MenuLink>
+          <MenuLink to="/page3">Page3</MenuLink>
+          <MenuLink to="/page4">Page4</MenuLink>
           {auth ? <MenuLink to="/profile">Profile</MenuLink>
             : <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
           {auth && <MenuLink to="/logout">Logout</MenuLink>}
