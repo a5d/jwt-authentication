@@ -4,13 +4,21 @@ import {Container, CssBaseline} from '@material-ui/core'
 
 import profileService from '../service/Profile'
 
-class ProfilePage extends Component {
-  state = {
+interface State {
+    profile?: object
+}
+
+interface Props {
+    auth?: boolean
+}
+
+class ProfilePage extends Component<State> {
+  public state = {
     profile: false,
     error: ''
   }
 
-  componentDidMount() {
+  public componentDidMount() {
 	  profileService()
 		.then(data => {
 		  if (data.error) {
@@ -23,7 +31,7 @@ class ProfilePage extends Component {
 		.catch(console.error)
   }
 
-  render() {
+  public render() {
     const {error, profile} = this.state
 
     if (profile || error) {
@@ -47,10 +55,6 @@ class ProfilePage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
+const mapStateToProps = ({auth}: Props) => ({auth})
 
 export default connect(mapStateToProps)(ProfilePage)

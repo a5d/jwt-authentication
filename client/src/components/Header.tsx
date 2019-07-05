@@ -1,23 +1,29 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import * as PropTypes from 'prop-types'
 import {AppBar, Toolbar, Typography} from '@material-ui/core'
 import useStyles from './Header.css'
 import MenuLink from './MenuLink'
 
+interface Props {
+  auth?: boolean
+}
 
-const Header = (props) => {
+const Header = (props: Props) => {
   const {auth} = props
   const classes = useStyles()
 
   return (
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar>
-        <Typography component={Link} to="/" variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          React auth with JWT
+        <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Link className={classes.logo} to="/" >React auth with JWT</Link>
         </Typography>
         <nav>
+          <MenuLink to="/page1">Page1</MenuLink>
+          <MenuLink to="/page2">Page2</MenuLink>
+          <MenuLink to="/page3">Page3</MenuLink>
+          <MenuLink to="/page4">Page4</MenuLink>
           {auth ? <MenuLink to="/profile">Profile</MenuLink>
             : <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
           {auth && <MenuLink to="/logout">Logout</MenuLink>}
@@ -27,13 +33,9 @@ const Header = (props) => {
   )
 }
 
-Header.propTypes = {
-  auth: PropTypes.bool.isRequired,
-}
-
-const mapStateToProps = state => {
+const mapStateToProps = ({auth}: Props) => {
   return {
-    auth: state.auth
+    auth
   }
 }
 

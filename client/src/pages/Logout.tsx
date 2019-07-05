@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import * as PropTypes from 'prop-types'
 import {Container, CssBaseline} from '@material-ui/core'
 import {logOut} from '../actions'
 
@@ -37,11 +36,6 @@ class LogoutPage extends Component {
     )
   }
 }
-
-LogoutPage.propTypes = {
-  auth: PropTypes.bool.isRequired,
-  logOut: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = state => {
   return {

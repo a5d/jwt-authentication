@@ -1,4 +1,4 @@
-const baseHttpService = (method, url, payload) => {
+const baseHttpService = (method: string, url: string, payload?: object) => {
   return fetch(process.env.API_URL + url, {
     method,
     credentials: 'include',
