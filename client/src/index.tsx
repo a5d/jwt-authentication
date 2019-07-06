@@ -4,7 +4,7 @@ import {hot} from 'react-hot-loader/root'
 import {BrowserRouter, Route, Switch, Link, withRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import Loadable from 'react-loadable'
+import Lazy from './containers/Lazy'
 
 import Auth from './containers/Auth'
 import reducers from './reducers'
@@ -12,65 +12,22 @@ import ProtectedRouter from './containers/ProtectedRouter'
 
 import './favicon.ico'
 import LayoutMd from "./components/LayoutMd";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import NewsPage from "./pages/NewsPage";
 
 const store = createStore(reducers)
 
-const LoadableProfile = Loadable({
-  loader: () => import('./pages/Profile'),
-  loading() {
-    return <div>Loading Profile...</div>
-  }
-})
+const Header = Lazy((): Promise<any> => import("./components/Header"), "Login")
+const LoginPage = Lazy((): Promise<any> => import("./pages/LoginPage"), "Login")
+const SignupPage = Lazy((): Promise<any> => import("./pages/SignupPage"), "Signup")
+const LogoutPage = Lazy((): Promise<any> => import("./pages/Logout"), "Logout")
+const ProfilePage = Lazy((): Promise<any> => import("./pages/Profile"), "Profile")
 
-const LoadableLogin = Loadable({
-  loader: (): Promise<any> => import('./pages/LoginPage'),
-  loading() {
-    return <div>Loading Login...</div>
-  }
-})
-
-const LoadableSignup = Loadable({
-  loader: (): Promise<any> => import('./pages/SignupPage'),
-  loading() {
-    return <div>Loading Signup...</div>
-  }
-})
-
-const LoadableLogout = Loadable({
-  loader: () => import('./pages/Logout'),
-  loading() {
-    return <div>Loading Logout...</div>
-  }
-})
-
-const LoadableHeader = Loadable({
-  loader: () => import('./components/Header'),
-  loading() {
-    return <LayoutMd>Loading Header...</LayoutMd>
-  }
-})
-
-const Page1 = () => {
-  return <LayoutMd title="Page1">text</LayoutMd>
-}
-
-const Page2 = () => {
-  return <LayoutMd title="Page2">Text</LayoutMd>
-}
-
-const Page3 = () => {
-  return <LayoutMd title="Page3">
-    <p>123</p>
-    <p><Link to={{pathname: "/page4", state: {from: "page3"}}}>Back</Link></p>
-  </LayoutMd>
-}
-
-const Page4 = withRouter((props: any) => {
-  console.log(props)
-
+const ContactsPage = withRouter((props: any) => {
   return (
-    <LayoutMd title="Page4">
-      <p><Link to={"/page3"}>Back</Link></p>
+    <LayoutMd title="Contacts">
+      <p><Link to={"/news"}>News</Link></p>
     </LayoutMd>
   )
 })
@@ -79,16 +36,16 @@ const App = hot(() => (
   <Provider store={store}>
     <BrowserRouter>
       <Auth>
-        <LoadableHeader/>
+        <Header/>
         <Switch>
-          <Route exact path='/' render={() => <LoadableLogin/>}/>
-          <Route path='/signup' render={() => <LoadableSignup/>}/>
-          <Route path='/page1' render={() => <Page1/>}/>
-          <Route path='/page2' render={() => <Page2/>}/>
-          <Route path='/page3' render={() => <Page3/>}/>
-          <Route path='/page4' render={(props) => <Page4 {...props} />}/>
-          <ProtectedRouter path='/profile' render={() => <LoadableProfile/>}/>
-          <Route path='/logout' render={() => <LoadableLogout/>}/>
+          <Route exact path='/' render={() => <HomePage/>}/>
+          <Route path='/about' render={() => <AboutPage/>}/>
+          <Route path='/news' render={() => <NewsPage/>}/>
+          <Route path='/contacts' render={(props) => <ContactsPage {...props} />}/>
+          <ProtectedRouter path='/profile' render={() => <ProfilePage/>}/>
+          <Route path='/signup' render={() => <SignupPage/>}/>
+          <Route path='/login' render={() => <LoginPage/>}/>
+          <Route path='/logout' render={() => <LogoutPage/>}/>
         </Switch>
       </Auth>
     </BrowserRouter>

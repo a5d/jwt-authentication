@@ -17,15 +17,15 @@ const Header = (props: Props) => {
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar>
         <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-          <Link className={classes.logo} to="/" >React auth with JWT</Link>
+          <Link className={classes.logo} to="/" >Site name</Link>
         </Typography>
         <nav>
-          <MenuLink to="/page1">Page1</MenuLink>
-          <MenuLink to="/page2">Page2</MenuLink>
-          <MenuLink to="/page3">Page3</MenuLink>
-          <MenuLink to="/page4">Page4</MenuLink>
+          <MenuLink to="/">Home</MenuLink>
+          <MenuLink to="/about">About</MenuLink>
+          <MenuLink to="/news">News</MenuLink>
+          <MenuLink to="/contacts">Contacts</MenuLink>
           {auth ? <MenuLink to="/profile">Profile</MenuLink>
-            : <><MenuLink to="/">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
+            : <><MenuLink to="/login">Signin</MenuLink><MenuLink to="/signup">Signup</MenuLink></>}
           {auth && <MenuLink to="/logout">Logout</MenuLink>}
         </nav>
       </Toolbar>
