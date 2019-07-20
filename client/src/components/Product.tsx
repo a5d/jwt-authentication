@@ -1,16 +1,9 @@
-import React from "react";
+import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, makeStyles,
+  Typography} from '@material-ui/core';
 
-import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
-import '../contemplative-reptile.jpg'
-import {Grid} from "@material-ui/core";
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {IProduct} from './Model';
 
 const useStyles = makeStyles({
   card: {
@@ -18,41 +11,40 @@ const useStyles = makeStyles({
   },
 });
 
-const Product = () => {
+const Product = ({id, name, image, description}: IProduct) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item={true} xs={12} sm={6} md={4}>
       <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
+        <CardActionArea component={Link} to={`/product/${id}`}>
+          {image && <CardMedia
             component="img"
-            alt="Contemplative Reptile"
+            alt={name}
             height="140"
-            image="contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
+            image={`http://127.0.0.1:3000/${image}`}
+            title={name}
+          />}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Product
+            <Typography gutterBottom={true} variant="h5" component="h2">
+              {name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
+              {description}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button component={Link} to={`/product/${id}/buy`} size="small" color="primary">
             Buy
           </Button>
-          <Button size="small" color="primary">
+          <Button component={Link} to={`/product/${id}`} size="small" color="primary">
             View
           </Button>
         </CardActions>
       </Card>
     </Grid>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

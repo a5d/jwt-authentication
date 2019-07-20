@@ -46,12 +46,12 @@ const Form = (props: Props) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        {icon && <Avatar className={classes.avatar}>
           {icon}
-        </Avatar>
-        <Typography component="h1" variant="h5">
+        </Avatar>}
+        {icon && <Typography component="h1" variant="h5">
           {name}
-        </Typography>
+        </Typography>}
         {error && <p className={classes.error}>{error}</p>}
         <form onSubmit={onSubmit} className={classes.form} noValidate>
           <TextField

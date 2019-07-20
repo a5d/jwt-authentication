@@ -9,8 +9,7 @@ interface Props {
   auth?: boolean
 }
 
-const Header = (props: Props) => {
-  const {auth} = props
+const Header = ({auth}: Props) => {
   const classes = useStyles()
 
   return (

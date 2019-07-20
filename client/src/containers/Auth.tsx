@@ -1,42 +1,25 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import checkAuth from '../service/Check'
-import {logIn} from '../actions'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {checkAuth} from '../actions';
 
-interface Props {
-  logIn: () => void
+interface IProps {
+  checkAuth: () => void;
 }
 
-class Auth extends Component<Props> {
-  state = {
-    loaded: false
-  }
+interface IState {
+  loaded: boolean;
+}
 
+class Auth extends Component<IProps, IState> {
   componentDidMount() {
-    const {logIn} = this.props
-
-    checkAuth().then(data => {
-      if (!data.error) {
-        logIn()
-      }
-      this.setState({loaded: true})
-    })
-      .catch(e => {
-        this.setState({loaded: true})
-        console.error(e)
-      })
+    const {checkAuth} = this.props;
+    checkAuth();
   }
 
   render() {
-    const {children} = this.props
-    const {loaded} = this.state
-
-    if (loaded) {
-      return children
-    }
-
-    return <div>Loading...</div>
+    const {children} = this.props;
+    return children;
   }
 }
 
-export default connect(null, {logIn})(Auth)
+export default connect(null, {checkAuth})(Auth);

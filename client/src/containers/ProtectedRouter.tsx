@@ -1,32 +1,32 @@
-import React from 'react'
-import {connect,} from 'react-redux'
-import {Route, Redirect} from 'react-router-dom'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Redirect, Route} from 'react-router-dom';
 
-interface Props {
-  render: () => JSX.Element,
-  path: string,
-  auth: boolean
+interface IProps {
+  render: () => JSX.Element;
+  path: string;
+  auth: boolean;
 }
 
-interface State {
-  auth: boolean
+interface IState {
+  auth: boolean;
 }
 
-const ProtectedRouter = ({render, auth, ...rest}: Props) => {
-  const renderFunc = auth ? render : () => <Redirect to='/' />
+const ProtectedRouter = ({render, auth, ...rest}: IProps) => {
+  const renderFunc = auth ? render : () => <Redirect to="/" />;
 
   return (
     <Route
       {...rest}
       render={renderFunc}
     />
-  )
-}
+  );
+};
 
-const mapStateToProps = (state : State) => {
+const mapStateToProps = (state: IState) => {
   return {
-    auth: state.auth
-  }
-}
+    auth: state.auth,
+  };
+};
 
-export default connect(mapStateToProps)(ProtectedRouter)
+export default connect(mapStateToProps)(ProtectedRouter);

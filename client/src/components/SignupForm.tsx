@@ -1,27 +1,27 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Face} from '@material-ui/icons'
-import {Link as MUILink} from '@material-ui/core'
-import {Link} from 'react-router-dom'
-import signupService from '../service/Signup'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Face} from '@material-ui/icons';
+import {Link as MUILink} from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import signupService from '../service/Signup';
 
-import Form from '../components/Form'
-import {withData, Props, State, Page} from '../containers/withData'
+import Form from '../components/Form';
+import {withData, Props, State, Page} from '../containers/withData';
 
 class SignupForm extends Component<Props, State, Page> {
   render() {
-    const {auth, complete, submitForm, updateInput} = this.props
+    const {auth, complete, submitForm, updateInput} = this.props;
 
     if (complete) {
       return (
         <p>Регистрация завершена</p>
-      )
+      );
     }
 
     if (auth) {
       return (
         <p>Вы уже зарегистрированы</p>
-      )
+      );
     }
 
     return (
@@ -36,7 +36,7 @@ class SignupForm extends Component<Props, State, Page> {
           </MUILink>
         )}
       />
-    )
+    );
   }
 }
 
@@ -44,7 +44,7 @@ class SignupForm extends Component<Props, State, Page> {
 const mapStateToProps = ({auth}: Props) => {
   return {
     auth
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(withData(SignupForm, signupService))
+export default connect(mapStateToProps)(withData(SignupForm, signupService));

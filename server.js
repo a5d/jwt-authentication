@@ -19,6 +19,8 @@ app.use(cors({
   credentials: true,
 }))
 
+app.use(express.static('data'));
+
 let collection = null
 
 MongoClient.connect(mongoUrl, {
@@ -37,6 +39,7 @@ MongoClient.connect(mongoUrl, {
 
   app.use((req, res, next) => {
     req.db = collection
+    req.client = client.db('jwt')
     next()
   })
 

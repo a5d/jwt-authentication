@@ -1,46 +1,45 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Container, CssBaseline} from '@material-ui/core'
-import {logOut} from '../actions'
+import {Container, CssBaseline} from '@material-ui/core';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {logOut} from '../actions';
 
-import logoutService from '../service/Logout'
+interface IStateProps {
+  auth?: boolean;
 
-class LogoutPage extends Component {
+}
+
+interface IDispatchToProps {
+  logOut: () => void;
+}
+
+type TProps = IStateProps & IDispatchToProps;
+
+class LogoutPage extends Component<TProps> {
   componentDidMount() {
-    this.userLogOut()
+    this.userLogOut();
   }
 
   userLogOut() {
-    const {logOut} = this.props
-
-    logoutService()
-      .then(data => {
-        if (data.error) {
-          console.error(data.error)
-        } else {
-          logOut()
-        }
-
-      })
-      .catch(console.error)
+    const {logOut} = this.props;
+    logOut();
   }
 
   render() {
-    const {auth} = this.props
+    const {auth} = this.props;
 
     return (
       <Container component="main" maxWidth="md">
         <CssBaseline />
         {(auth) ? <p>Выход...</p> : <p>Вы вышли</p>}
       </Container>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: IStateProps) => {
   return {
     auth: state.auth
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, {logOut})(LogoutPage)
+export default connect(mapStateToProps, {logOut})(LogoutPage);

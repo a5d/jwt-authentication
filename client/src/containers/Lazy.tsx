@@ -1,9 +1,9 @@
-import React from "react";
-import Loadable from 'react-loadable'
+import React from 'react';
+import Loadable from 'react-loadable';
 
-export default (fn: any, text: string) => Loadable({
-  loader: fn,
+export default (loader: () => Promise<any>, text: string) => Loadable({
+  loader,
   loading() {
-    return <div>{text}</div>
-  }
-})
+    return <div>{text}</div>;
+  },
+});
